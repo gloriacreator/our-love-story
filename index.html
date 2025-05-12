@@ -98,24 +98,39 @@
 
     @media (max-width: 600px) {
       .character {
-        width: 50%;
-        max-height: 300px;
-      }
+      width: 50%;
+      max-height: 220px;
+    }
 
       .speech-bubble {
-        font-size: 0.95em;
-        padding: 10px 14px;
-        bottom: 130px;
-      }
-
+      font-size: 0.85em;
+      padding: 8px 12px;
+      max-width: 40%;
+      bottom: 120px;
+    }
       #finalBubble {
         font-size: 1em;
-        bottom: 150px;
+        bottom: 20px;
+        left: 49%;
       }
 
       .next-btn {
         font-size: 0.95em;
         padding: 8px 16px;
+      }
+
+      .left-bubble {
+        left: 17%;
+        bottom: 140px;
+        background: #ffc0cb;
+        color: #5a3e36;
+      }
+
+      .right-bubble {
+        right: 22%;
+        bottom: 140px;
+        background: #800000;
+        color: #ffffff;
       }
     }
   </style>
@@ -139,7 +154,7 @@
       { speaker: 'boy', text: 'From the other end of the beach, I saw her—and the world stood still.' },
       { speaker: 'girl', text: 'Each step brought us closer, like the sea was guiding us.' },
       { speaker: 'boy', text: 'When our eyes met, I knew—this was the start of forever.' },
-      { speaker: 'final', text: 'Now, hand in hand, we walk into a new chapter. <strong>Join us as we say “I do.”</strong>' }
+      { speaker: 'final', text: 'Now, hand in hand, we walk into a new chapter. <br><strong>Join us as we say “I do.”</strong>' }
     ];
 
     let currentIndex = 0;
