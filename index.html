@@ -164,6 +164,7 @@
       const boyBubble = document.getElementById('boyBubble');
       const finalBubble = document.getElementById('finalBubble');
       const title = document.getElementById('title');
+      const nextButton = document.getElementById('nextButton');
 
       if (currentIndex === 0) {
         title.style.display = 'none';
@@ -172,6 +173,7 @@
       girlBubble.style.display = 'none';
       boyBubble.style.display = 'none';
       finalBubble.style.display = 'none';
+      // nextButton.style.display = 'none';
 
       if (currentIndex < dialogues.length) {
         const { speaker, text } = dialogues[currentIndex];
@@ -188,8 +190,14 @@
         }
 
         currentIndex++;
+        if (currentIndex < dialogues.length) {
+                    setTimeout(showNextLine, 5000); // 5000 milliseconds = 5 seconds
+                }
       } else {
-        alert('Thank you for joining our story!');
+        // Optional: What to do after the last dialogue
+                    setTimeout(() => {
+                        alert('Thank you for joining our story!');
+                    }, 5000);
       }
     }
   </script>
