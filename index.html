@@ -145,7 +145,7 @@
       <div class="speech-bubble right-bubble" id="boyBubble"></div>
       <div class="speech-bubble" id="finalBubble"></div>
     </div>
-    <button class="next-btn" onclick="showNextLine()">Next</button>
+    <button class="next-btn" onclick="showNextLine()">Play</button>
   </div>
 
   <script>
@@ -159,47 +159,50 @@
 
     let currentIndex = 0;
 
-    function showNextLine() {
-      const girlBubble = document.getElementById('girlBubble');
-      const boyBubble = document.getElementById('boyBubble');
-      const finalBubble = document.getElementById('finalBubble');
-      const title = document.getElementById('title');
-      const nextButton = document.getElementById('nextButton');
+  function showNextLine() {
+  const girlBubble = document.getElementById('girlBubble');
+  const boyBubble = document.getElementById('boyBubble');
+  const finalBubble = document.getElementById('finalBubble');
+  const title = document.getElementById('title');
 
-      if (currentIndex === 0) {
-        title.style.display = 'none';
-      }
+  if (currentIndex === 0) {
+    title.style.display = 'none';
+  }
 
-      girlBubble.style.display = 'none';
-      boyBubble.style.display = 'none';
-      finalBubble.style.display = 'none';
-      // nextButton.style.display = 'none';
+  girlBubble.style.display = 'none';
+  boyBubble.style.display = 'none';
+  finalBubble.style.display = 'none';
 
-      if (currentIndex < dialogues.length) {
-        const { speaker, text } = dialogues[currentIndex];
+  if (currentIndex < dialogues.length) {
+    const { speaker, text } = dialogues[currentIndex];
 
-        if (speaker === 'girl') {
-          girlBubble.innerHTML = text;
-          girlBubble.style.display = 'block';
-        } else if (speaker === 'boy') {
-          boyBubble.innerHTML = text;
-          boyBubble.style.display = 'block';
-        } else if (speaker === 'final') {
-          finalBubble.innerHTML = text;
-          finalBubble.style.display = 'block';
-        }
-
-        currentIndex++;
-        if (currentIndex < dialogues.length) {
-                    setTimeout(showNextLine, 5000); // 5000 milliseconds = 5 seconds
-                }
-      } else {
-        // Optional: What to do after the last dialogue
-                    setTimeout(() => {
-                        alert('Thank you for joining our story!');
-                    }, 5000);
-      }
+    if (speaker === 'girl') {
+      girlBubble.innerHTML = text;
+      girlBubble.style.display = 'block';
+    } else if (speaker === 'boy') {
+      boyBubble.innerHTML = text;
+      boyBubble.style.display = 'block';
+    } else if (speaker === 'final') {
+      finalBubble.innerHTML = text;
+      finalBubble.style.display = 'block';
     }
+
+    currentIndex++;
+
+    if (currentIndex < dialogues.length) {
+      setTimeout(showNextLine, 5000);
+    } else {
+      // Scroll down and redirect
+      setTimeout(() => {
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        setTimeout(() => {
+          window.location.href = 'wedding.html';
+        }, 2000); // Wait 2 more seconds before redirecting
+      }, 5000); // After final dialogue
+    }
+  }
+}
+
   </script>
 </body>
 </html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Wedding Details</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Georgia', serif;
+      background: url('wedding_background.jpeg') no-repeat center center fixed;
+      background-size: cover;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+      animation: fadeInBody 2s ease-in;
+      color: white;
+    }
+
+    @keyframes fadeInBody {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .heading {
+      text-align: center;
+      padding: 20px 30px;
+      margin: 30px auto 0;
+      font-size: 1.8em;
+      line-height: 1.5;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+      background-color: rgba(255, 255, 255, 0.7);
+      color: #333;
+      border-radius: 15px;
+      max-width: 90%;
+      width: fit-content;
+      animation: fadeInBox 2s ease forwards;
+    }
+
+    .heading h1 {
+      margin: 0;
+      font-size: 2em;
+    }
+
+    .heading p {
+      margin: 10px 0 0;
+      font-size: 1.1em;
+    }
+
+    .info-box {
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      background-color: rgba(0, 0, 0, 0.6);
+      color: white;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.3s ease, opacity 0.8s ease;
+      text-align: center;
+      opacity: 0;
+      animation: fadeInBox 2s ease forwards;
+    }
+
+    .bottom-left {
+      bottom: 30px;
+      left: 30px;
+      animation-delay: 1s;
+    }
+
+    .bottom-right {
+      bottom: 30px;
+      right: 30px;
+      animation-delay: 1.4s;
+    }
+
+    .bottom-center {
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation-delay: 1.2s;
+    }
+
+    @keyframes fadeInBox {
+      to { opacity: 1; }
+    }
+
+    .circle {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      background-color: rgba(255, 255, 255, 0.9);
+      color: #333;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95em;
+      opacity: 0;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .circle.show {
+      opacity: 1;
+      transform: translateY(-120px);
+    }
+
+    /* Mobile Responsive Styles */
+    @media (max-width: 600px) {
+      .heading {
+        font-size: 1.2em;
+        padding: 10px 25px;
+        transform: translateY(-2px);
+      }
+
+      .heading h1 {
+        font-size: 1.5em;
+      }
+
+      .heading p {
+        font-size: 1em;
+      }
+
+      .info-box {
+        width: 90px;
+        height: 90px;
+        font-size: 0.85em;
+      }
+
+      .bottom-left {
+        bottom: 20px;
+        left: 15px;
+      }
+
+      .bottom-right {
+        bottom: 20px;
+        right: 15px;
+      }
+
+      .bottom-center {
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .circle {
+        width: 80px;
+        height: 80px;
+        font-size: 0.75em;
+        transform: none;
+      }
+
+      .circle.show {
+        transform: translateY(-100px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="heading">
+    <h1>You're Invited!</h1>
+    <p>Come celebrate with us as we begin our forever.</p>
+  </div>
+
+  <div class="info-box bottom-left" onclick="showCircle('date')">Date</div>
+  <div class="circle" id="dateCircle" style="bottom: 130px; left: 30px;">October 25, 2025</div>
+
+  <div class="info-box bottom-center" onclick="showCircle('time')">Time</div>
+  <div class="circle" id="timeCircle" style="bottom: 130px; left: 50%; transform: translateX(-50%);">7:00 PM</div>
+
+  <div class="info-box bottom-right" onclick="showCircle('venue')">Venue</div>
+  <div class="circle" id="venueCircle" style="bottom: 130px; right: 30px;">Aurika by Lemon Tree Hotels Andheri East</div>
+
+  <script>
+    function showCircle(type) {
+      const circle = document.getElementById(type + 'Circle');
+      circle.classList.toggle('show');
+    }
+  </script>
+</body>
+</html>
