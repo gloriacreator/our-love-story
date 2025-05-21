@@ -10,9 +10,8 @@
       font-family: 'Georgia', serif;
       background: url('wedding_background_v1.JPG') no-repeat center center fixed;
       background-size: cover;
-      height: 100vh;
-      overflow: hidden;
-      position: relative;
+      min-height: 100vh;
+      overflow-x: hidden;
       animation: fadeInBody 2s ease-in;
       color: white;
     }
@@ -24,36 +23,37 @@
 
     .heading {
       text-align: center;
-      padding: 20px 30px;
-      margin: 30px auto 0;
-      font-size: 1.8em;
-      line-height: 1.5;
+      padding: 12px 16px;
+      margin: 0 auto;
+      font-size: 1.2em;
+      line-height: 1.4;
       text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
       background-color: rgba(255, 255, 255, 0.7);
       color: #333;
-      border-radius: 15px;
-      max-width: 90%;
-      width: fit-content;
+      border-radius: 12px;
+      max-width: 95%;
       animation: fadeInBox 2s ease forwards;
+      position: relative;
+      top: 10px;
     }
 
     .heading h1 {
       margin: 0;
-      font-size: 2em;
+      font-size: 1.5em;
     }
 
     .heading p {
-      margin: 10px 0 0;
-      font-size: 1.1em;
+      margin: 5px 0 0;
+      font-size: 1em;
     }
 
     .info-box {
       position: absolute;
-      width: 120px;
-      height: 120px;
+      width: 100px;
+      height: 100px;
       background-color: rgba(0, 0, 0, 0.6);
       color: white;
-      border-radius: 15px;
+      border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -62,25 +62,26 @@
       text-align: center;
       opacity: 0;
       animation: fadeInBox 2s ease forwards;
+      font-size: 0.9em;
     }
 
     .bottom-left {
-      bottom: 30px;
-      left: 30px;
+      bottom: 20px;
+      left: 20px;
       animation-delay: 1s;
     }
 
-    .bottom-right {
-      bottom: 30px;
-      right: 30px;
-      animation-delay: 1.4s;
-    }
-
     .bottom-center {
-      bottom: 30px;
+      bottom: 20px;
       left: 50%;
       transform: translateX(-50%);
       animation-delay: 1.2s;
+    }
+
+    .bottom-right {
+      bottom: 20px;
+      right: 20px;
+      animation-delay: 1.4s;
     }
 
     @keyframes fadeInBox {
@@ -89,17 +90,17 @@
 
     .circle {
       position: absolute;
-      width: 100px;
-      height: 100px;
+      width: 90px;
+      height: 90px;
       background-color: rgba(255, 255, 255, 0.9);
       color: #333;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.95em;
+      font-size: 0.85em;
       opacity: 0;
-      transition: opacity 0.5s ease, bottom 0.5s ease;
+      transition: opacity 0.4s ease, bottom 0.4s ease;
       padding: 10px;
       text-align: center;
       pointer-events: none;
@@ -107,56 +108,56 @@
 
     .circle.show {
       opacity: 1;
-      bottom: 160px; /* Raised */
+      bottom: 130px;
       pointer-events: auto;
     }
 
     /* Mobile Responsive Styles */
     @media (max-width: 600px) {
       .heading {
-        font-size: 1.2em;
-        padding: 8px 16px;
-        /* top: 100px; */
+        font-size: 1em;
+        padding: 8px 12px;
+        top: 5px;
       }
 
       .heading h1 {
-        font-size: 1.3em;
+        font-size: 1.2em;
       }
 
       .heading p {
-        font-size: 0.9em;
+        font-size: 0.95em;
       }
 
       .info-box {
-        width: 90px;
-        height: 90px;
-        font-size: 0.85em;
-      }
-
-      .bottom-left {
-        left: 15px;
-        bottom: 80px;
-      }
-
-      .bottom-right {
-        right: 15px;
-        bottom: 80px;
-      }
-
-      .bottom-center {
-        left: 50%;
-        transform: translateX(-50%);
-        bottom: 80px;
-      }
-
-      .circle {
         width: 80px;
         height: 80px;
         font-size: 0.75em;
       }
 
+      .bottom-left {
+        left: 10px;
+        bottom: 20px;
+      }
+
+      .bottom-right {
+        right: 10px;
+        bottom: 20px;
+      }
+
+      .bottom-center {
+        left: 50%;
+        bottom: 20px;
+        transform: translateX(-50%);
+      }
+
+      .circle {
+        width: 70px;
+        height: 70px;
+        font-size: 0.7em;
+      }
+
       .circle.show {
-        bottom: 130px;
+        bottom: 110px;
       }
     }
   </style>
@@ -168,13 +169,13 @@
   </div>
 
   <div class="info-box bottom-left" onclick="showCircle('date')">Date</div>
-  <div class="circle" id="dateCircle" style="left: 15px; bottom: 180px;">October 25, 2025</div>
+  <div class="circle" id="dateCircle" style="left: 20px;">October 25, 2025</div>
 
   <div class="info-box bottom-center" onclick="showCircle('time')">Time</div>
-  <div class="circle" id="timeCircle" style="left: 50%; transform: translateX(-50%); bottom: 180px;">7:00 PM</div>
+  <div class="circle" id="timeCircle" style="left: 50%; transform: translateX(-50%);">7:00 PM</div>
 
   <div class="info-box bottom-right" onclick="showCircle('venue')">Venue</div>
-  <div class="circle" id="venueCircle" style="right: 15px; bottom: 180px;">Aurika by Lemon Tree Hotels Andheri East</div>
+  <div class="circle" id="venueCircle" style="right: 20px;">Aurika by Lemon Tree Hotels<br>Andheri East</div>
 
   <script>
     function showCircle(type) {
