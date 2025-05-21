@@ -115,7 +115,8 @@
     @media (max-width: 600px) {
       .heading {
         font-size: 1.2em;
-        padding: 10px 25px;
+        /* padding: 15px 20px; */
+        /* top: 100px; */
       }
 
       .heading h1 {
@@ -134,18 +135,18 @@
 
       .bottom-left {
         left: 15px;
-        bottom: 30px;
+        bottom: 80px;
       }
 
       .bottom-right {
         right: 15px;
-        bottom: 30px;
+        bottom: 80px;
       }
 
       .bottom-center {
         left: 50%;
         transform: translateX(-50%);
-        bottom: 30px;
+        bottom: 80px;
       }
 
       .circle {
@@ -167,13 +168,13 @@
   </div>
 
   <div class="info-box bottom-left" onclick="showCircle('date')">Date</div>
-  <div class="circle" id="dateCircle" style="left: 30px; bottom: 130px;">October 25, 2025</div>
+  <div class="circle" id="dateCircle" style="left: 15px; bottom: 180px;">October 25, 2025</div>
 
   <div class="info-box bottom-center" onclick="showCircle('time')">Time</div>
-  <div class="circle" id="timeCircle" style="left: 50%; transform: translateX(-50%); bottom: 130px;">7:00 PM</div>
+  <div class="circle" id="timeCircle" style="left: 50%; transform: translateX(-50%); bottom: 180px;">7:00 PM</div>
 
   <div class="info-box bottom-right" onclick="showCircle('venue')">Venue</div>
-  <div class="circle" id="venueCircle" style="right: 30px; bottom: 130px;">Aurika by Lemon Tree Hotels Andheri East</div>
+  <div class="circle" id="venueCircle" style="right: 15px; bottom: 180px;">Aurika by Lemon Tree Hotels Andheri East</div>
 
   <script>
     function showCircle(type) {
