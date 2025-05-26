@@ -14,6 +14,7 @@
       overflow-x: hidden;
       animation: fadeInBody 2s ease-in;
       color: white;
+      perspective: 1000px;
     }
 
     @keyframes fadeInBody {
@@ -47,118 +48,85 @@
       font-size: 1em;
     }
 
-    .info-box {
-      position: absolute;
-      width: 100px;
-      height: 100px;
-      background-color: rgba(0, 0, 0, 0.6);
-      color: white;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: transform 0.3s ease, opacity 0.8s ease;
-      text-align: center;
-      opacity: 0;
-      animation: fadeInBox 2s ease forwards;
-      font-size: 0.9em;
-    }
-
-    .bottom-left {
-      bottom: 20px;
-      left: 20px;
-      animation-delay: 1s;
-    }
-
-    .bottom-center {
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      animation-delay: 1.2s;
-    }
-
-    .bottom-right {
-      bottom: 20px;
-      right: 20px;
-      animation-delay: 1.4s;
-    }
-
     @keyframes fadeInBox {
       to { opacity: 1; }
     }
 
-    .circle {
+    .flip-wrapper {
       position: absolute;
-      width: 90px;
-      height: 90px;
+      width: 100px;
+      height: 100px;
+      perspective: 1000px;
+      bottom: 130px;
+    }
+
+    .circle {
+      width: 100px;
+      height: 100px;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 1.5s ease;
+    }
+
+    .circle.flipped {
+      transform: rotateY(180deg);
+    }
+
+    .face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
       background-color: rgba(255, 255, 255, 0.9);
       color: #333;
-      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.85em;
-      opacity: 0;
-      transition: opacity 0.4s ease, bottom 0.4s ease;
+      font-size: 0.8em;
       padding: 10px;
       text-align: center;
-      pointer-events: none;
+      backface-visibility: hidden;
     }
 
-    .circle.show {
-      opacity: 1;
-      bottom: 130px;
-      pointer-events: auto;
+    .front {
+      transform: rotateY(0deg);
     }
 
-    /* Mobile Responsive Styles */
+    .back {
+      transform: rotateY(180deg);
+    }
+
+    .bottom-left {
+      left: 20px;
+    }
+
+    .bottom-center {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .bottom-right {
+      right: 20px;
+    }
+
     @media (max-width: 600px) {
-      .heading {
-        font-size: 1em;
-        padding: 8px 12px;
-        top: 5px;
-      }
-
-      .heading h1 {
-        font-size: 1.2em;
-      }
-
-      .heading p {
-        font-size: 0.95em;
-      }
-
-      .info-box {
+      .flip-wrapper {
         width: 80px;
         height: 80px;
-        font-size: 0.75em;
-      }
-
-      .bottom-left {
-        left: 10px;
-        bottom: 20px;
-      }
-
-      .bottom-right {
-        right: 10px;
-        bottom: 20px;
-      }
-
-      .bottom-center {
-        left: 50%;
-        bottom: 20px;
-        transform: translateX(-50%);
+        bottom: 110px;
       }
 
       .circle {
-        width: 70px;
-        height: 70px;
+        width: 80px;
+        height: 80px;
+      }
+
+      .face {
         font-size: 0.7em;
       }
 
-      .circle.show {
-        bottom: 110px;
-      }
+      .bottom-left { left: 10px; }
+      .bottom-right { right: 10px; }
     }
   </style>
 </head>
@@ -168,20 +136,42 @@
     <p>Come celebrate with us as we begin our forever.</p>
   </div>
 
-  <div class="info-box bottom-left" onclick="showCircle('date')">Date</div>
-  <div class="circle" id="dateCircle" style="left: 20px;">October 25, 2025</div>
+  <!-- Flip Circles -->
+  <div class="flip-wrapper bottom-left">
+    <div class="circle" id="dateCircle">
+      <div class="face front">Save the Date</div>
+      <div class="face back">Date:<br>October 25, 2025</div>
+    </div>
+  </div>
 
-  <div class="info-box bottom-center" onclick="showCircle('time')">Time</div>
-  <div class="circle" id="timeCircle" style="left: 50%; transform: translateX(-50%);">7:00 PM</div>
+  <div class="flip-wrapper bottom-center">
+    <div class="circle" id="timeCircle">
+      <div class="face front">Let’s Celebrate</div>
+      <div class="face back">Time:<br>7:00 PM</div>
+    </div>
+  </div>
 
-  <div class="info-box bottom-right" onclick="showCircle('venue')">Venue</div>
-  <div class="circle" id="venueCircle" style="right: 20px;">Aurika by Lemon Tree Hotels<br>Andheri East</div>
+  <div class="flip-wrapper bottom-right">
+    <div class="circle" id="venueCircle">
+      <div class="face front">See You There!</div>
+      <div class="face back">Venue:<br>Aurika by Lemon Tree Hotels<br>Andheri East</div>
+    </div>
+  </div>
 
   <script>
-    function showCircle(type) {
-      const circle = document.getElementById(type + 'Circle');
-      circle.classList.toggle('show');
-    }
+    window.onload = () => {
+      setTimeout(() => {
+        document.getElementById('dateCircle').classList.add('flipped');
+      }, 1500);
+
+      setTimeout(() => {
+        document.getElementById('timeCircle').classList.add('flipped');
+      }, 3000);
+
+      setTimeout(() => {
+        document.getElementById('venueCircle').classList.add('flipped');
+      }, 4500);
+    };
   </script>
 </body>
 </html>
