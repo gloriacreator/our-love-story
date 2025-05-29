@@ -10,11 +10,15 @@
       font-family: 'Georgia', serif;
       background: url('wedding_background_v1.JPG') no-repeat center center fixed;
       background-size: cover;
-      min-height: 100vh;
-      overflow-x: hidden;
+      min-height: 100vh; /* Ensures body fills viewport height */
+      overflow-x: hidden; /* Prevents horizontal scroll */
       animation: fadeInBody 2s ease-in;
       color: white;
-      position: relative;
+      position: relative; /* For positioning children like .tooltip */
+
+      /* --- New Flexbox styles --- */
+      display: flex;
+      flex-direction: column;
     }
 
     @keyframes fadeInBody {
@@ -25,7 +29,7 @@
     .heading {
       text-align: center;
       padding: 12px 16px;
-      margin: 20px auto;
+      margin: 20px auto; /* Existing margin for vertical spacing and horizontal centering */
       font-size: 1.2em;
       line-height: 1.4;
       text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
@@ -34,8 +38,11 @@
       border-radius: 12px;
       max-width: 90%;
       animation: fadeInBox 2s ease forwards;
-      position: relative;
-      opacity: 0;
+      position: relative; /* Keep if any child elements depend on it */
+      opacity: 0; /* Initial state for animation */
+
+      /* --- Add flex-shrink --- */
+      flex-shrink: 0;
     }
 
     .heading h1 {
@@ -53,15 +60,21 @@
     }
 
     .circles-container {
-        position: absolute;
-        bottom: 50px;
-        left: 0;
-        width: 100%;
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        padding: 0 15px;
-        box-sizing: border-box;
+      /* REMOVE: position: absolute; */
+      /* REMOVE: bottom: 50px; */
+      /* REMOVE: left: 0; */
+
+      width: 100%; /* Keep: ensures it spans width if needed */
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 0 15px; /* Horizontal padding */
+      box-sizing: border-box;
+
+      /* --- New styles for flex layout --- */
+      margin-top: auto; /* Pushes this container to the bottom */
+      padding-top: 20px; /* Optional: adds some space above the circles */
+      padding-bottom: 50px; /* Space from the bottom edge of the screen */
     }
 
     .flip-wrapper {
@@ -169,41 +182,50 @@
     }
 
     @media (max-width: 600px) {
-        .circles-container {
-            bottom: 30px;
-            padding: 0 10px;
-        }
+    .circles-container {
+      /* REMOVE: bottom: 30px; (if it was here, it's already removed from base) */
+      padding: 0 10px; /* Horizontal padding */
 
-        .flip-wrapper {
-            width: 100px;
-            height: 100px;
-        }
-
-          .circle {
-            width: 100px;
-            height: 100px;
-        }
-
-        .face {
-            font-size: 0.7em;
-        }
-
-        .map-icon {
-            width: 20px;
-            height: 20px;
-        }
-
-        .tooltip {
-          bottom: 132px;
-          right: 8px;
-          font-size: 0.7em;
-        }
-
-        .tooltip::after {
-          left: 50%;
-          transform: translateX(-50%);
-        }
+      /* --- Adjust vertical padding --- */
+      padding-top: 15px; /* Optional: adjust space above circles on mobile */
+      padding-bottom: 30px; /* Space from bottom edge on mobile */
     }
+
+    /* ... other existing mobile styles for .flip-wrapper, .circle, .face, .map-icon, .tooltip ... */
+    /* These existing styles that reduce sizes are good and should be kept. */
+
+    .flip-wrapper {
+      width: 100px;
+      height: 100px;
+    }
+
+    .circle { /* Ensure this is also targeted if flip-wrapper was */
+      width: 100px;
+      height: 100px;
+    }
+
+    .face {
+      font-size: 0.7em;
+    }
+
+    .map-icon {
+      width: 20px;
+      height: 20px;
+    }
+
+    /* Tooltip positioning: The existing .tooltip CSS with absolute positioning
+      relative to the body should still work. Its 'bottom' values (180px / 132px)
+      were likely chosen to place it just above the circles. Since the circles' effective
+      distance from the bottom (due to circles-container padding-bottom + circle height)
+      remains similar, the tooltip values might still be appropriate.
+      You may need to fine-tune these if the tooltip appears misaligned. */
+    .tooltip {
+      bottom: 132px; /* This was intended for when circles are ~100px high + 30px bottom offset */
+      right: 8px;
+      font-size: 0.7em;
+    }
+    /* ... */
+  }
   </style>
 </head>
 <body>
