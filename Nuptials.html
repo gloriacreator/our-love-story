@@ -13,7 +13,7 @@
       margin: 0;
       font-family: 'Georgia', serif;
       color: #ffffff;
-      background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
+      background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
                   url('church_background.jpg') no-repeat center center/cover;
       min-height: 100vh;
       display: flex;
@@ -48,10 +48,14 @@
       animation: flyLeft 1.5s ease-out forwards;
     }
 
+    .show .and-text {
+      animation: fadeIn 1.5s ease-out forwards;
+      animation-delay: 1s;
+    }
+
     .show .gloria {
       animation: flyRight 1.5s ease-out forwards;
       animation-delay: 1s;
-      animation-fill-mode: forwards;
     }
 
     .show .details {
@@ -63,46 +67,25 @@
       flex-grow: 1;
       display: flex;
       flex-direction: column;
-      align-items: center;  /* <-- change from flex-start to center */
+      align-items: center;
       justify-content: center;
-      padding: 0 20px;
       font-size: 2.5rem;
       font-weight: bold;
       line-height: 1.5;
-      max-width: 100%;
+      text-align: center;
     }
 
+    .keenan,
+    .gloria,
+    .and-text {
+      opacity: 0;
+    }
 
-  .keenan {
-    animation: flyLeft 1.5s ease-out forwards;
-    opacity: 0;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;  /* <-- change from flex-start to center */
-    justify-content: center;
-    padding: 0 20px;
-    font-size: 2.5rem;
-    font-weight: bold;
-    line-height: 1.5;
-    max-width: 100%;
-  }
-
-  .and-text {
-    margin-left: 40px;
-    font-size: 2rem;
-    opacity: 0;
-    animation: fadeIn 2s ease forwards;
-    animation-delay: 1.2s;
-    
-  }
-
-  .gloria {
-    margin-left: 80px;
-    animation: flyRight 1.5s ease-out forwards;
-    animation-delay: 2s;
-    opacity: 0;
-  }
+    .keenan,
+    .gloria {
+      width: 100%;
+      text-align: center;
+    }
 
     @keyframes flyLeft {
       from {
@@ -140,6 +123,12 @@
       to { opacity: 1; }
     }
 
+    .details {
+      text-align: center;
+      padding: 20px;
+      font-size: 1.1rem;
+    }
+
     @media (max-width: 600px) {
       .verse {
         font-size: 1rem;
@@ -152,7 +141,6 @@
 
       .details {
         font-size: 1rem;
-        text-align: center;
       }
     }
   </style>
@@ -162,20 +150,13 @@
     <span class="typewriter-text" id="typewriter"></span>
   </div>
 
-  <!-- <div class="center">
-  <div class="keenan">Keenan</div><span style="font-size: 2rem;"></span>
-  <div class="and-text" style="font-size: 2rem; margin: 10px 0;"><span style="font-size: 2rem;">and</span></div>
-  <div class="gloria">Gloria</div>
-</div> -->
-  <!-- <div class="center">
-    <div class="keenan">Keenan</div><br><br><span style="font-size: 2rem;">and</span><br><span style="font-size: 2rem;"><br>Gloria</span>
-  </div> -->
   <div class="center">
-  <div class="keenan">Keenan</div>
-  <div class="and-text">and</div>
-  <div class="gloria">Gloria</div>
-</div>
-  <div class="details" id="details">
+    <div class="keenan">Keenan</div>
+    <div class="and-text">and</div>
+    <div class="gloria">Gloria</div>
+  </div>
+
+  <div class="details">
     <strong>Together with their families, invite you to celebrate their marriage<br></strong>
     <strong><br>Holy Family Church, Andheri East<br></strong>
     <strong><br>At 4:00 PM</strong>
@@ -190,10 +171,9 @@
       if (index < text.length) {
         target.textContent += text.charAt(index);
         index++;
-        setTimeout(typeWriter, 1); // Typing speed
+        setTimeout(typeWriter, 30); // Typing speed
       } else {
         target.style.borderRight = "none";
-        // Reveal center and details after typing
         document.body.classList.add("show");
       }
     }

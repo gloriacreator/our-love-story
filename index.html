@@ -11,33 +11,37 @@
       background: url('beach.jpeg') no-repeat center center fixed;
       background-size: cover;
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
       min-height: 100vh;
+      text-align: center;
     }
 
-    .overlay {
-      background-color: rgba(255, 255, 255, 0.85);
-      border-radius: 20px;
-      padding: 20px;
-      max-width: 800px;
-      width: 90%;
-      text-align: center;
-      position: relative;
-      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    #title {
+      font-size: 2.5em;
+      color: white;
+      margin-top: 40px;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.4);
     }
 
     .scene {
+      position: fixed;
+      bottom: 200px; /* A bit above the nav-links bar */
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+      max-width: 800px;
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
-      margin-bottom: 20px;
-      position: relative;
+      z-index: 10;
+      margin: 0; /* Remove margin so it's fixed */
     }
 
     .character {
       width: 30%;
-      max-height: 220px;
+      max-height: 200px;
     }
 
     .speech-bubble {
@@ -66,6 +70,10 @@
     }
 
     .next-btn {
+      position: fixed;
+      bottom: 80px; /* Just above the nav-links */
+      left: 50%;
+      transform: translateX(-50%);
       padding: 10px 20px;
       background: #c57b57;
       color: white;
@@ -73,7 +81,8 @@
       border-radius: 10px;
       cursor: pointer;
       font-size: 1em;
-      margin-top: 20px;
+      z-index: 11;
+      margin: 0;
     }
 
     .next-btn:hover {
@@ -96,18 +105,42 @@
       z-index: 1;
     }
 
-    @media (max-width: 600px) {
-      .character {
-      width: 50%;
-      max-height: 220px;
+    .nav-links {
+      position: fixed;
+      bottom: 10px;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 15px;
+      z-index: 20;
     }
 
-      .speech-bubble {
+    .nav-links a {
       font-size: 0.85em;
-      padding: 8px 12px;
-      max-width: 40%;
-      bottom: 120px;
+      color: #fff;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 6px 12px;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: background 0.3s ease;
     }
+
+    .nav-links a:hover {
+      background: rgba(0, 0, 0, 0.8);
+    }
+
+    @media (max-width: 600px) {
+      .character {
+        width: 50%;
+      }
+
+      .speech-bubble {
+        font-size: 0.85em;
+        padding: 8px 12px;
+        max-width: 40%;
+        bottom: 120px;
+      }
+
       #finalBubble {
         font-size: 1em;
         bottom: 20px;
@@ -122,63 +155,29 @@
       .left-bubble {
         left: 17%;
         bottom: 140px;
-        background: #ffc0cb;
-        color: #5a3e36;
       }
 
       .right-bubble {
         right: 22%;
         bottom: 140px;
-        background: #800000;
-        color: #ffffff;
       }
-
-      .nav-links {
-        position: fixed;
-        bottom: 10px;
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        padding: 0 15px;
-        z-index: 20;
-      }
-
-      .nav-links a {
-        font-size: 0.85em;
-        color: #fff;
-        background: rgba(0, 0, 0, 0.5);
-        padding: 6px 12px;
-        border-radius: 10px;
-        text-decoration: none;
-        transition: background 0.3s ease;
-      }
-
-      .nav-links a:hover {
-        background: rgba(0, 0, 0, 0.8);
-      }
-
     }
   </style>
 </head>
-<div class="nav-links">
-  <a href="Nuptials.html" class="nav-left">
-    ⛪ Take me to church
-  </a>
-  <a href="wedding.html" class="nav-right">
-    🎉 Take me to party
-  </a>
-</div>
 <body>
-  <div class="overlay">
-    <h1 id="title">Once Upon a Tide…</h1>
-    <div class="scene">
-      <img src="girl.png" alt="Girl" class="character" id="girl" />
-      <img src="boy.png" alt="Boy" class="character" id="boy" />
-      <div class="speech-bubble left-bubble" id="girlBubble"></div>
-      <div class="speech-bubble right-bubble" id="boyBubble"></div>
-      <div class="speech-bubble" id="finalBubble"></div>
-    </div>
-    <button class="next-btn" onclick="showNextLine()">Play</button>
+  <h1 id="title">Once Upon a Tide…</h1>
+  <div class="scene">
+    <img src="girl.png" alt="Girl" class="character" id="girl" />
+    <img src="boy.png" alt="Boy" class="character" id="boy" />
+    <div class="speech-bubble left-bubble" id="girlBubble"></div>
+    <div class="speech-bubble right-bubble" id="boyBubble"></div>
+    <div class="speech-bubble" id="finalBubble"></div>
+  </div>
+  <button class="next-btn" onclick="showNextLine()">Play</button>
+
+  <div class="nav-links">
+    <a href="Nuptials.html" class="nav-left">⛪ Take me to church</a>
+    <a href="wedding.html" class="nav-right">🎉 Take me to party</a>
   </div>
 
   <script>
@@ -192,50 +191,36 @@
 
     let currentIndex = 0;
 
-  function showNextLine() {
-  const girlBubble = document.getElementById('girlBubble');
-  const boyBubble = document.getElementById('boyBubble');
-  const finalBubble = document.getElementById('finalBubble');
-  const title = document.getElementById('title');
+    function showNextLine() {
+      const girlBubble = document.getElementById('girlBubble');
+      const boyBubble = document.getElementById('boyBubble');
+      const finalBubble = document.getElementById('finalBubble');
 
-  if (currentIndex === 0) {
-    title.style.display = 'none';
-  }
+      girlBubble.style.display = 'none';
+      boyBubble.style.display = 'none';
+      finalBubble.style.display = 'none';
 
-  girlBubble.style.display = 'none';
-  boyBubble.style.display = 'none';
-  finalBubble.style.display = 'none';
+      if (currentIndex < dialogues.length) {
+        const { speaker, text } = dialogues[currentIndex];
 
-  if (currentIndex < dialogues.length) {
-    const { speaker, text } = dialogues[currentIndex];
+        if (speaker === 'girl') {
+          girlBubble.innerHTML = text;
+          girlBubble.style.display = 'block';
+        } else if (speaker === 'boy') {
+          boyBubble.innerHTML = text;
+          boyBubble.style.display = 'block';
+        } else if (speaker === 'final') {
+          finalBubble.innerHTML = text;
+          finalBubble.style.display = 'block';
+        }
 
-    if (speaker === 'girl') {
-      girlBubble.innerHTML = text;
-      girlBubble.style.display = 'block';
-    } else if (speaker === 'boy') {
-      boyBubble.innerHTML = text;
-      boyBubble.style.display = 'block';
-    } else if (speaker === 'final') {
-      finalBubble.innerHTML = text;
-      finalBubble.style.display = 'block';
+        currentIndex++;
+
+        if (currentIndex < dialogues.length) {
+          setTimeout(showNextLine, 5000);
+        } 
+      }
     }
-
-    currentIndex++;
-
-    if (currentIndex < dialogues.length) {
-      setTimeout(showNextLine, 5000);
-    } else {
-      // Scroll down and redirect
-      setTimeout(() => {
-        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-        setTimeout(() => {
-          window.location.href = 'wedding.html';
-        }, 2000); // Wait 2 more seconds before redirecting
-      }, 5000); // After final dialogue
-    }
-  }
-}
-
   </script>
 </body>
 </html>
