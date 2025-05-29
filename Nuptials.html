@@ -13,7 +13,7 @@
       margin: 0;
       font-family: 'Georgia', serif;
       color: #ffffff;
-      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+      background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
                   url('church_background.jpg') no-repeat center center/cover;
       min-height: 100vh;
       display: flex;
@@ -25,24 +25,119 @@
       text-align: center;
       font-size: 1.2rem;
       font-style: italic;
+      min-height: 80px;
+    }
+
+    .typewriter-text {
+      display: inline-block;
+      border-right: 2px solid white;
+      white-space: pre-wrap;
+      overflow-wrap: break-word;
+    }
+
+    .center,
+    .details {
+      opacity: 0;
+    }
+
+    .show .center {
+      animation: fadeInContainer 0.5s forwards;
+    }
+
+    .show .keenan {
+      animation: flyLeft 1.5s ease-out forwards;
+    }
+
+    .show .gloria {
+      animation: flyRight 1.5s ease-out forwards;
+      animation-delay: 1s;
+      animation-fill-mode: forwards;
+    }
+
+    .show .details {
+      animation: fadeIn 2s ease forwards;
+      animation-delay: 2.5s;
     }
 
     .center {
       flex-grow: 1;
       display: flex;
-      align-items: center;
+      flex-direction: column;
+      align-items: center;  /* <-- change from flex-start to center */
       justify-content: center;
-      text-align: center;
+      padding: 0 20px;
       font-size: 2.5rem;
       font-weight: bold;
-      padding: 0 20px;
-      line-height: 2.8; /* Increased spacing */
+      line-height: 1.5;
+      max-width: 100%;
     }
 
-    .details {
-      text-align: center;
-      padding: 20px;
-      font-size: 1.1rem;
+
+  .keenan {
+    animation: flyLeft 1.5s ease-out forwards;
+    opacity: 0;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;  /* <-- change from flex-start to center */
+    justify-content: center;
+    padding: 0 20px;
+    font-size: 2.5rem;
+    font-weight: bold;
+    line-height: 1.5;
+    max-width: 100%;
+  }
+
+  .and-text {
+    margin-left: 40px;
+    font-size: 2rem;
+    opacity: 0;
+    animation: fadeIn 2s ease forwards;
+    animation-delay: 1.2s;
+    
+  }
+
+  .gloria {
+    margin-left: 80px;
+    animation: flyRight 1.5s ease-out forwards;
+    animation-delay: 2s;
+    opacity: 0;
+  }
+
+    @keyframes flyLeft {
+      from {
+        transform: translateX(-100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes flyRight {
+      from {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeInContainer {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
     @media (max-width: 600px) {
@@ -52,29 +147,58 @@
 
       .center {
         font-size: 2rem;
-        line-height: 2.8; /* Maintain spacing on mobile */
+        line-height: 2.5;
       }
 
       .details {
         font-size: 1rem;
+        text-align: center;
       }
     }
   </style>
 </head>
 <body>
   <div class="verse">
-    “And now these three remain: faith, hope and love. But the greatest of these is love.”<br>
-    – 1 Corinthians 13:1
+    <span class="typewriter-text" id="typewriter"></span>
   </div>
 
+  <!-- <div class="center">
+  <div class="keenan">Keenan</div><span style="font-size: 2rem;"></span>
+  <div class="and-text" style="font-size: 2rem; margin: 10px 0;"><span style="font-size: 2rem;">and</span></div>
+  <div class="gloria">Gloria</div>
+</div> -->
+  <!-- <div class="center">
+    <div class="keenan">Keenan</div><br><br><span style="font-size: 2rem;">and</span><br><span style="font-size: 2rem;"><br>Gloria</span>
+  </div> -->
   <div class="center">
-    Keenan<br><br><span style="font-size: 2rem;">and</span><br>Gloria
-  </div>
-
-  <div class="details">
+  <div class="keenan">Keenan</div>
+  <div class="and-text">and</div>
+  <div class="gloria">Gloria</div>
+</div>
+  <div class="details" id="details">
     <strong>Together with their families, invite you to celebrate their marriage<br></strong>
     <strong><br>Holy Family Church, Andheri East<br></strong>
     <strong><br>At 4:00 PM</strong>
   </div>
+
+  <script>
+    const text = `“And now these three remain: faith, hope and love. But the greatest of these is love.” – 1 Corinthians 13:1`;
+    const target = document.getElementById("typewriter");
+    let index = 0;
+
+    function typeWriter() {
+      if (index < text.length) {
+        target.textContent += text.charAt(index);
+        index++;
+        setTimeout(typeWriter, 1); // Typing speed
+      } else {
+        target.style.borderRight = "none";
+        // Reveal center and details after typing
+        document.body.classList.add("show");
+      }
+    }
+
+    window.onload = typeWriter;
+  </script>
 </body>
 </html>
