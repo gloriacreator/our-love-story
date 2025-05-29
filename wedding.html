@@ -182,48 +182,48 @@
     }
 
     @media (max-width: 600px) {
-    .circles-container {
-      /* REMOVE: bottom: 30px; (if it was here, it's already removed from base) */
-      padding: 0 10px; /* Horizontal padding */
+      .circles-container {
+        /* REMOVE: bottom: 30px; (if it was here, it's already removed from base) */
+        padding: 0 10px; /* Horizontal padding */
 
-      /* --- Adjust vertical padding --- */
-      padding-top: 15px; /* Optional: adjust space above circles on mobile */
-      padding-bottom: 30px; /* Space from bottom edge on mobile */
-    }
+        /* --- Adjust vertical padding --- */
+        padding-top: 15px; /* Optional: adjust space above circles on mobile */
+        padding-bottom: 30px; /* Space from bottom edge on mobile */
+      }
 
-    /* ... other existing mobile styles for .flip-wrapper, .circle, .face, .map-icon, .tooltip ... */
-    /* These existing styles that reduce sizes are good and should be kept. */
+      /* ... other existing mobile styles for .flip-wrapper, .circle, .face, .map-icon, .tooltip ... */
+      /* These existing styles that reduce sizes are good and should be kept. */
 
-    .flip-wrapper {
-      width: 100px;
-      height: 100px;
-    }
+      .flip-wrapper {
+        width: 100px;
+        height: 100px;
+      }
 
-    .circle { /* Ensure this is also targeted if flip-wrapper was */
-      width: 100px;
-      height: 100px;
-    }
+      .circle { /* Ensure this is also targeted if flip-wrapper was */
+        width: 100px;
+        height: 100px;
+      }
 
-    .face {
-      font-size: 0.7em;
-    }
+      .face {
+        font-size: 0.7em;
+      }
 
-    .map-icon {
-      width: 20px;
-      height: 20px;
-    }
+      .map-icon {
+        width: 20px;
+        height: 20px;
+      }
 
-    /* Tooltip positioning: The existing .tooltip CSS with absolute positioning
-      relative to the body should still work. Its 'bottom' values (180px / 132px)
-      were likely chosen to place it just above the circles. Since the circles' effective
-      distance from the bottom (due to circles-container padding-bottom + circle height)
-      remains similar, the tooltip values might still be appropriate.
-      You may need to fine-tune these if the tooltip appears misaligned. */
-    .tooltip {
-      bottom: 132px; /* This was intended for when circles are ~100px high + 30px bottom offset */
-      right: 8px;
-      font-size: 0.7em;
-    }
+      /* Tooltip positioning: The existing .tooltip CSS with absolute positioning
+        relative to the body should still work. Its 'bottom' values (180px / 132px)
+        were likely chosen to place it just above the circles. Since the circles' effective
+        distance from the bottom (due to circles-container padding-bottom + circle height)
+        remains similar, the tooltip values might still be appropriate.
+        You may need to fine-tune these if the tooltip appears misaligned. */
+      .tooltip {
+        bottom: 132px; /* This was intended for when circles are ~100px high + 30px bottom offset */
+        right: 8px;
+        font-size: 0.7em;
+      }
     /* ... */
   }
   </style>
