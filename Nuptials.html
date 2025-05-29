@@ -2,141 +2,79 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Keenan weds Gloria</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Wedding Invitation</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       font-family: 'Georgia', serif;
-      position: relative;
+      color: #ffffff;
+      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+                  url('church_background.jpg') no-repeat center center/cover;
       min-height: 100vh;
       display: flex;
-      flex-direction: column; /* Stack items vertically */
-      align-items: center; /* Center content horizontally within the flex container */
-      padding: 20px; /* Add overall body padding to prevent content from touching edges on small screens */
-      box-sizing: border-box; /* Include padding in the element's total width and height */
-    }
-
-    /* Background image with reduced opacity */
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: url('church_background.jpg') no-repeat center center fixed;
-      background-size: cover;
-      opacity: 0.28;
-      z-index: -1;
-    }
-
-    .verse-container {
-      width: 100%;
-      max-width: 800px;
-      text-align: center;
-      padding: 0 20px;
-      margin-top: 50px; /* Push the verse down from the very top */
-      box-sizing: border-box;
+      flex-direction: column;
     }
 
     .verse {
-      font-style: italic;
-      font-size: 1.3em;
-      margin-bottom: 20px;
-      animation: fadeInDown 2s ease;
-    }
-
-    /* New container to center the main heading and details */
-    .main-content-wrapper {
-      display: flex; /* Make this a flex container */
-      flex-direction: column; /* Stack its children vertically */
-      align-items: center; /* Center children horizontally */
-      justify-content: center; /* Center children vertically within this wrapper */
-      flex-grow: 1; /* Allow this wrapper to take up available space */
-      width: 100%;
-      max-width: 800px;
-      margin: auto; /* This will center the wrapper itself vertically */
-      padding: 20px; /* Padding for the wrapper content */
-      box-sizing: border-box;
-    }
-
-    h1 {
-      font-size: 2.8em;
-      margin: 0; /* Reset margins as the wrapper handles spacing */
-      padding: 0; /* Reset padding as wrapper handles it */
-      animation: fadeInDown 2s ease 0.5s;
-      animation-fill-mode: both;
-      width: 100%; /* Take full width of its wrapper */
+      padding: 20px;
       text-align: center;
-      box-sizing: border-box;
+      font-size: 1.2rem;
+      font-style: italic;
+    }
+
+    .center {
+      flex-grow: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 2.5rem;
+      font-weight: bold;
+      padding: 0 20px;
+      line-height: 2.8; /* Increased spacing */
     }
 
     .details {
-      font-size: 1.2em;
-      line-height: 1.6;
-      margin-top: 25px; /* Space between heading and details */
-      margin-bottom: 0; /* Reset margin as the wrapper handles vertical centering */
-      animation: flyInUp 2s ease-out 1s;
-      animation-fill-mode: both;
-      width: 100%;
       text-align: center;
-      box-sizing: border-box;
+      padding: 20px;
+      font-size: 1.1rem;
     }
 
-    @keyframes fadeInDown {
-      from { opacity: 0; transform: translateY(-30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes flyInUp {
-      from { opacity: 0; transform: translateY(100px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* Media query for smaller screens */
     @media (max-width: 600px) {
-      body {
-        padding: 15px;
-      }
-
-      .verse-container {
-        margin-top: 30px;
-        padding: 0 15px;
-      }
-
       .verse {
-        font-size: 1em;
-        margin-bottom: 15px;
+        font-size: 1rem;
       }
 
-      .main-content-wrapper {
-        padding: 15px; /* Adjust wrapper padding for mobile */
-      }
-
-      h1 {
-        font-size: 2.2em;
+      .center {
+        font-size: 2rem;
+        line-height: 2.8; /* Maintain spacing on mobile */
       }
 
       .details {
-        font-size: 1em;
-        margin-top: 15px; /* Adjust space between heading and details for mobile */
+        font-size: 1rem;
       }
     }
   </style>
 </head>
 <body>
-  <div class="verse-container">
-    <p class="verse">"And now these three remain: faith, hope and love. But the greatest of these is love."<br><em>– 1 Corinthians 13:13</em></p>
+  <div class="verse">
+    “And now these three remain: faith, hope and love. But the greatest of these is love.”<br>
+    – 1 Corinthians 13:1
   </div>
 
-  <div class="main-content-wrapper">
-    <h1>Keenan<br>&<br>Gloria</h1>
-    <div class="details">
-      Join us for the celebration of our Catholic Nuptial Mass<br>
-      <strong>Holy Family Church, Andheri East</strong><br>
-      <strong>At 4:00 PM</strong>
-    </div>
+  <div class="center">
+    Keenan<br><br><span style="font-size: 2rem;">and</span><br>Gloria
+  </div>
+
+  <div class="details">
+    <strong>Together with their families, invite you to celebrate their marriage<br></strong>
+    <strong><br>Holy Family Church, Andheri East<br></strong>
+    <strong><br>At 4:00 PM</strong>
   </div>
 </body>
 </html>
