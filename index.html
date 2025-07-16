@@ -1,685 +1,227 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Wedding Journey</title>
-    <style>
-        /* Global Styles */
-        html, body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Georgia', serif;
-            /* scroll-behavior: smooth; /* Optional: for JS-driven smooth scroll if not using snap */
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Our Love Story</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Georgia', serif;
+      background: url('beach.jpeg') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      text-align: center;
+    }
 
-        .scroll-snap-container {
-            height: 100vh;
-            overflow-y: scroll;
-            scroll-snap-type: y mandatory;
-        }
+    #title {
+      font-size: 2.5em;
+      color: white;
+      margin-top: 40px;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.4);
+    }
 
-        .page-section {
-            height: 100vh;
-            width: 100%;
-            overflow: hidden; /* Prevent internal content from breaking layout if too tall */
-            display: flex; /* Helps in centering or structuring content */
-            flex-direction: column; /* Default direction for content stacking */
-            scroll-snap-align: start;
-            box-sizing: border-box;
-            position: relative; /* For absolutely positioned children within a page */
-        }
+    .scene {
+      position: fixed;
+      bottom: 200px; /* A bit above the nav-links bar */
+      bottom: 130px; /* A bit above the nav-links bar */
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+      max-width: 800px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      z-index: 10;
+      margin: 0; /* Remove margin so it's fixed */
+    }
 
-        /* --- Styles from index.html (Our Love Story) --- */
-        #loveStoryPage {
-            background: url('beach.jpeg') no-repeat center center fixed; /* */
-            background-size: cover; /* */
-            align-items: center; /* */
-            justify-content: flex-start; /* */
-            text-align: center; /* */
-        }
+    .character {
+      width: 30%;
+      max-height: 200px;
+    }
 
-        #loveStoryPage #title_LS { /* Renamed to avoid conflict if 'title' is too generic */
-            font-size: 2.5em; /* */
-            color: white; /* */
-            margin-top: 40px; /* */
-            text-shadow: 2px 2px 5px rgba(0,0,0,0.4); /* */
-        }
+    .speech-bubble {
+      position: absolute;
+      max-width: 70%;
+      padding: 12px 16px;
+      border-radius: 20px;
+      font-size: 1em;
+      display: none;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      word-wrap: break-word;
+    }
 
-        #loveStoryPage .scene_LS {
-            position: absolute; /* Changed from fixed to absolute relative to page-section */
-            bottom: 130px; /* */
-            left: 50%; /* */
-            transform: translateX(-50%); /* */
-            width: 90%; /* */
-            max-width: 800px; /* */
-            display: flex; /* */
-            justify-content: space-between; /* */
-            align-items: flex-end; /* */
-            z-index: 10; /* */
-        }
+    .left-bubble {
+      left: 10%;
+      bottom: 140px;
+      background: #ffc0cb;
+      color: #5a3e36;
+    }
 
-        #loveStoryPage .character_LS {
-            width: 30%; /* */
-            max-height: 200px; /* */
-        }
+    .right-bubble {
+      right: 10%;
+      bottom: 140px;
+      background: #800000;
+      color: #ffffff;
+    }
 
-        #loveStoryPage .speech-bubble_LS {
-            position: absolute; /* */
-            max-width: 70%; /* */
-            padding: 12px 16px; /* */
-            border-radius: 20px; /* */
-            font-size: 1em; /* */
-            display: none; /* */
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2); /* */
-            word-wrap: break-word; /* */
-        }
+    .next-btn {
+      position: fixed;
+      bottom: 80px; /* Just above the nav-links */
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 10px 20px;
+      background: #c57b57;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 1em;
+      z-index: 11;
+      margin: 0;
+    }
 
-        #loveStoryPage .left-bubble_LS {
-            left: 10%; /* */
-            bottom: 140px; /* */
-            background: #ffc0cb; /* */
-            color: #5a3e36; /* */
-        }
+    .next-btn:hover {
+      background: #a95c3f;
+    }
 
-        #loveStoryPage .right-bubble_LS {
-            right: 10%; /* */
-            bottom: 140px; /* */
-            background: #800000; /* */
-            color: #ffffff; /* */
-        }
+    #finalBubble {
+      position: absolute;
+      background: #f5f5dc;
+      color: black;
+      padding: 14px 20px;
+      border-radius: 20px;
+      max-width: 80%;
+      font-size: 1.1em;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      display: none;
+      left: 50%;
+      bottom: 160px;
+      transform: translateX(-50%);
+      z-index: 1;
+    }
 
-        #loveStoryPage .next-btn_LS {
-            position: absolute; /* Changed from fixed */
-            bottom: 80px; /* */
-            left: 50%; /* */
-            transform: translateX(-50%); /* */
-            padding: 10px 20px; /* */
-            background: #c57b57; /* */
-            color: white; /* */
-            border: none; /* */
-            border-radius: 10px; /* */
-            cursor: pointer; /* */
-            font-size: 1em; /* */
-            z-index: 11; /* */
-        }
+    .nav-links {
+      position: fixed;
+      bottom: 10px;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 15px;
+      z-index: 20;
+    }
 
-        #loveStoryPage .next-btn_LS:hover {
-            background: #a95c3f; /* */
-        }
+    .nav-links a {
+      font-size: 0.85em;
+      color: #fff;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 6px 12px;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: background 0.3s ease;
+    }
 
-        #loveStoryPage #finalBubble_LS {
-            position: absolute; /* */
-            background: #f5f5dc; /* */
-            color: black; /* */
-            padding: 14px 20px; /* */
-            border-radius: 20px; /* */
-            max-width: 80%; /* */
-            font-size: 1.1em; /* */
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2); /* */
-            display: none; /* */
-            left: 50%; /* */
-            bottom: 160px; /* */
-            transform: translateX(-50%); /* */
-            z-index: 1; /* */
-        }
+    .nav-links a:hover {
+      background: rgba(0, 0, 0, 0.8);
+    }
 
-        #loveStoryPage .nav-links_LS { /* These links would ideally scroll to next section or be removed */
-            position: absolute; /* Changed from fixed */
-            bottom: 10px; /* */
-            width: 100%; /* */
-            display: flex; /* */
-            justify-content: space-around; /* Changed for better spacing if kept */
-            padding: 0 15px; /* */
-            z-index: 20; /* */
-            box-sizing: border-box;
-        }
+    @media (max-width: 600px) {
+      .character {
+        width: 50%;
+      }
 
-        #loveStoryPage .nav-links_LS a {
-            font-size: 0.85em; /* */
-            color: #fff; /* */
-            background: rgba(0, 0, 0, 0.5); /* */
-            padding: 6px 12px; /* */
-            border-radius: 10px; /* */
-            text-decoration: none; /* */
-            transition: background 0.3s ease; /* */
-        }
+      .speech-bubble {
+        font-size: 0.85em;
+        padding: 8px 12px;
+        max-width: 40%;
+        bottom: 120px;
+      }
 
-        #loveStoryPage .nav-links_LS a:hover {
-            background: rgba(0, 0, 0, 0.8); /* */
-        }
+      #finalBubble {
+        font-size: 1em;
+        bottom: 20px;
+        left: 49%;
+      }
 
-        @media (max-width: 600px) {
-            #loveStoryPage .character_LS { width: 50%; } /* */
-            #loveStoryPage .speech-bubble_LS { font-size: 0.85em; padding: 8px 12px; max-width: 40%; bottom: 120px; } /* */
-            #loveStoryPage #finalBubble_LS { font-size: 1em; bottom: 20px; left: 49%; } /* */
-            #loveStoryPage .next-btn_LS { font-size: 0.95em; padding: 8px 16px; } /* */
-            #loveStoryPage .left-bubble_LS { left: 17%; bottom: 140px; } /* */
-            #loveStoryPage .right-bubble_LS { right: 22%; bottom: 140px; } /* */
-        }
+      .next-btn {
+        font-size: 0.95em;
+        padding: 8px 16px;
+      }
 
+      .left-bubble {
+        left: 17%;
+        bottom: 140px;
+      }
 
-        /* --- Styles from Nuptials.html --- */
-        #nuptialsPage {
-            color: #ffffff; /* */
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
-                        url('church_background.jpg') no-repeat center center/cover; /* */
-        }
-        #nuptialsPage * { box-sizing: border-box; } /* */
-
-
-        #nuptialsPage .verse_N {
-            padding: 20px; /* */
-            text-align: center; /* */
-            font-size: 1.2rem; /* */
-            font-style: italic; /* */
-            min-height: 80px; /* */
-        }
-
-        #nuptialsPage .typewriter-text_N {
-            display: inline-block; /* */
-            border-right: 2px solid white; /* */
-            white-space: pre-wrap; /* */
-            overflow-wrap: break-word; /* */
-        }
-
-        #nuptialsPage .center_N,
-        #nuptialsPage .details_N {
-            opacity: 0; /* */
-        }
-
-        #nuptialsPage.show-animations .center_N { /* Added .show-animations to page itself */
-            animation: fadeInContainer_N 0.5s forwards; /* */
-        }
-
-        #nuptialsPage.show-animations .keenan_N {
-            animation: flyLeft_N 1.5s ease-out forwards; /* */
-        }
-
-        #nuptialsPage.show-animations .and-text_N {
-            animation: fadeIn_N 1.5s ease-out forwards; /* */
-            animation-delay: 1s; /* */
-        }
-
-        #nuptialsPage.show-animations .gloria_N {
-            animation: flyRight_N 1.5s ease-out forwards; /* */
-            animation-delay: 1s; /* */
-        }
-
-        #nuptialsPage.show-animations .details_N {
-            animation: fadeIn_N 2s ease forwards; /* */
-            animation-delay: 2.5s; /* */
-        }
-
-        #nuptialsPage .center_N {
-            flex-grow: 1; /* */
-            display: flex; /* */
-            flex-direction: column; /* */
-            align-items: center; /* */
-            justify-content: center; /* */
-            font-size: 2.5rem; /* */
-            font-weight: bold; /* */
-            line-height: 1.5; /* */
-            text-align: center; /* */
-        }
-
-        #nuptialsPage .keenan_N,
-        #nuptialsPage .gloria_N,
-        #nuptialsPage .and-text_N {
-            opacity: 0; /* */
-        }
-
-        #nuptialsPage .keenan_N,
-        #nuptialsPage .gloria_N {
-            width: 100%; /* */
-            text-align: center; /* */
-        }
-
-        @keyframes flyLeft_N { /* */
-            from { transform: translateX(-100%); opacity: 0; } /* */
-            to { transform: translateX(0); opacity: 1; } /* */
-        }
-        @keyframes flyRight_N { /* */
-            from { transform: translateX(100%); opacity: 0; } /* */
-            to { transform: translateX(0); opacity: 1; } /* */
-        }
-        @keyframes fadeIn_N { /* */
-            from { opacity: 0; } /* */
-            to { opacity: 1; } /* */
-        }
-        @keyframes fadeInContainer_N { /* */
-            from { opacity: 0; } /* */
-            to { opacity: 1; } /* */
-        }
-
-        #nuptialsPage .details_N {
-            text-align: center; /* */
-            padding: 20px; /* */
-            font-size: 1.1rem; /* */
-        }
-
-        @media (max-width: 600px) {
-            #nuptialsPage .verse_N { font-size: 1rem; } /* */
-            #nuptialsPage .center_N { font-size: 2rem; line-height: 2.5; } /* */
-            #nuptialsPage .details_N { font-size: 1rem; } /* */
-        }
-
-
-        /* --- Styles from wedding.html (Party Time) --- */
-        #weddingPartyPage {
-            font-family: 'Georgia', serif; /* */
-            background: url('wedding_background_v1.png') no-repeat center center fixed; /* */
-            background-size: cover; /* */
-            color: white; /* */
-            /* display: flex; flex-direction: column; /* Already on .page-section */
-        }
-
-        @keyframes fadeInBody_WP { /* */
-            from { opacity: 0; } /* */
-            to { opacity: 1; } /* */
-        }
-        #weddingPartyPage { animation: fadeInBody_WP 2s ease-in; } /* */
-
-
-        #weddingPartyPage .heading_WP {
-            text-align: center; /* */
-            padding: 12px 16px; /* */
-            margin: 20px auto; /* */
-            font-size: clamp(1em, 2.5vw, 1.2em); /* */
-            line-height: 1.4; /* */
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.3); /* */
-            background-color: rgba(255, 255, 255, 0.7); /* */
-            color: #333; /* */
-            border-radius: 12px; /* */
-            max-width: 90%; /* */
-            animation: fadeInBox_WP 2s ease forwards; /* */
-            position: relative; /* */
-            opacity: 0; /* */
-            flex-shrink: 0; /* */
-        }
-
-        #weddingPartyPage .heading_WP h1 {
-            margin: 0; /* */
-            font-size: clamp(1.2em, 5vw, 2em); /* */
-        }
-
-        #weddingPartyPage .heading_WP p {
-            margin: 5px 0 0; /* */
-            font-size: clamp(0.9em, 4vw, 1.1em); /* */
-        }
-
-        @keyframes fadeInBox_WP { to { opacity: 1; } } /* */
-
-
-        #weddingPartyPage .circles-container_WP {
-            width: 100%; /* */
-            display: flex; /* */
-            justify-content: space-around; /* */
-            align-items: center; /* */
-            padding: 20px 15px 60px; /* */
-            box-sizing: border-box; /* */
-            flex-wrap: wrap; /* */
-            gap: 20px; /* */
-            margin-top: auto; /* */
-        }
-
-        #weddingPartyPage .flip-wrapper_WP {
-            width: 120px; /* */
-            height: 120px; /* */
-            perspective: 800px; /* */
-            flex-shrink: 0; /* */
-        }
-
-        #weddingPartyPage .circle_WP {
-            width: 100%; /* */
-            height: 100%; /* */
-            position: relative; /* */
-            transform-style: preserve-3d; /* */
-            transform-origin: center center; /* */
-            transition: transform 1.6s ease; /* */
-        }
-
-        #weddingPartyPage .circle_WP.flipped_WP { /* Renamed class for scoping */
-            transform: rotateY(180deg); /* */
-        }
-
-        #weddingPartyPage .face_WP {
-            position: absolute; /* */
-            width: 100%; /* */
-            height: 100%; /* */
-            border-radius: 50%; /* */
-            background-color: #000; /* */
-            color: white; /* */
-            display: flex; /* */
-            align-items: center; /* */
-            justify-content: center; /* */
-            font-size: 0.85em; /* */
-            padding: 10px; /* */
-            text-align: center; /* */
-            backface-visibility: hidden; /* */
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); /* */
-            border: 4px double gold; /* */
-            box-sizing: border-box; /* */
-        }
-
-        #weddingPartyPage .front_WP { transform: rotateY(0deg); } /* */
-        #weddingPartyPage .back_WP { transform: rotateY(180deg); } /* */
-
-        #weddingPartyPage .map-link_WP {
-            display: flex; /* */
-            flex-direction: column; /* */
-            align-items: center; /* */
-            justify-content: center; /* */
-            text-decoration: none; /* */
-            color: white; /* */
-            width: 100%; /* */
-            height: 100%; /* */
-        }
-
-        #weddingPartyPage .map-icon_WP {
-            width: 24px; /* */
-            height: 24px; /* */
-            stroke: gold; /* */
-            fill: gold; /* */
-            margin-bottom: 5px; /* */
-            transition: transform 0.2s ease-in-out; /* */
-        }
-        #weddingPartyPage .map-link_WP:hover .map-icon_WP { transform: scale(1.15); } /* */
-
-        #weddingPartyPage .tooltip_WP {
-            position: absolute; /* */ /* Will be relative to #weddingPartyPage */
-            bottom: 180px; /* */
-            right: 15px; /* */
-            background: rgba(0, 0, 0, 0.85); /* */
-            color: #fff; /* */
-            padding: 8px 12px; /* */
-            border-radius: 8px; /* */
-            font-size: 0.8em; /* */
-            box-shadow: 0 2px 6px rgba(0,0,0,0.3); /* */
-            opacity: 0; /* */
-            transform: translateY(10px); /* */
-            transition: opacity 0.6s ease, transform 0.6s ease; /* */
-            z-index: 10; /* */
-            max-width: 150px; /* */
-        }
-        #weddingPartyPage .tooltip_WP::after { /* */
-            content: ""; position: absolute; top: 100%; left: 50%; /* */
-            transform: translateX(-50%); border-width: 6px; border-style: solid; /* */
-            border-color: rgba(0, 0, 0, 0.85) transparent transparent transparent; /* */
-        }
-        #weddingPartyPage .tooltip_WP.show_WP { opacity: 1; transform: translateY(0); } /* */
-
-
-        @media (max-width: 600px) {
-            #weddingPartyPage .circles-container_WP { padding: 20px 10px 40px; gap: 15px; } /* */
-            #weddingPartyPage .flip-wrapper_WP { width: 90px; height: 90px; } /* */
-            #weddingPartyPage .face_WP { font-size: 0.7em; } /* */
-            #weddingPartyPage .map-icon_WP { width: 20px; height: 20px; } /* */
-            #weddingPartyPage .tooltip_WP { bottom: 120px; right: 10px; font-size: 0.7em; max-width: 130px; } /* */
-        }
-
-    </style>
+      .right-bubble {
+        right: 22%;
+        bottom: 140px;
+      }
+    }
+  </style>
 </head>
 <body>
+  <h1 id="title">Once Upon a Tide…</h1>
+  <div class="scene">
+    <img src="girl.png" alt="Girl" class="character" id="girl" />
+    <img src="boy.png" alt="Boy" class="character" id="boy" />
+    <div class="speech-bubble left-bubble" id="girlBubble"></div>
+    <div class="speech-bubble right-bubble" id="boyBubble"></div>
+    <div class="speech-bubble" id="finalBubble"></div>
+  </div>
+  <button class="next-btn" onclick="showNextLine()">Play</button>
 
-    <div class="scroll-snap-container">
+  <div class="nav-links">
+    <a href="Nuptials.html" class="nav-left">⛪ Take me to church</a>
+    <a href="wedding.html" class="nav-right">🎉 Take me to party</a>
+  </div>
 
-        <section id="loveStoryPage" class="page-section">
-            <h1 id="title_LS">Once Upon a Tide…</h1>
-            <div class="scene_LS">
-                <img src="girl.png" alt="Girl" class="character_LS" id="girl_LS" />
-                <img src="boy.png" alt="Boy" class="character_LS" id="boy_LS" />
-                <div class="speech-bubble_LS left-bubble_LS" id="girlBubble_LS"></div>
-                <div class="speech-bubble_LS right-bubble_LS" id="boyBubble_LS"></div>
-                <div class="speech-bubble_LS" id="finalBubble_LS"></div>
-            </div>
-            <button class="next-btn_LS" id="playDialogueButton_LS">Play</button>
+  <script>
+    const dialogues = [
+      { speaker: 'girl', text: 'I walked along the shore, lost in thought, not knowing love was walking toward me.' },
+      { speaker: 'boy', text: 'From the other end of the beach, I saw her—and the world stood still.' },
+      { speaker: 'girl', text: 'Each step brought us closer, like the sea was guiding us.' },
+      { speaker: 'boy', text: 'When our eyes met, I knew—this was the start of forever.' },
+      { speaker: 'final', text: 'Now, hand in hand, we walk into a new chapter. <br><strong>Join us as we say “I do.”</strong>' }
+    ];
 
-            <div class="nav-links_LS">
-                <a href="#nuptialsPage" class="nav-left_LS internal-scroll-link">⛪ Take me to church</a>
-                <a href="#weddingPartyPage" class="nav-right_LS internal-scroll-link">🎉 Take me to party</a>
-            </div>
-        </section>
+    let currentIndex = 0;
 
-        <section id="nuptialsPage" class="page-section">
-            <div class="verse_N">
-                <span class="typewriter-text_N" id="typewriter_N"></span>
-            </div>
+    function showNextLine() {
+      const girlBubble = document.getElementById('girlBubble');
+      const boyBubble = document.getElementById('boyBubble');
+      const finalBubble = document.getElementById('finalBubble');
 
-            <div class="center_N">
-                <div class="keenan_N">Keenan</div>
-                <div class="and-text_N">and</div>
-                <div class="gloria_N">Gloria</div>
-            </div>
+      girlBubble.style.display = 'none';
+      boyBubble.style.display = 'none';
+      finalBubble.style.display = 'none';
 
-            <div class="details_N">
-                <strong>Together with their families, invite you to celebrate their marriage<br></strong>
-                <strong><br>Holy Family Church, Andheri East<br></strong>
-                <strong><br>At 4:00 PM</strong>
-            </div>
-        </section>
+      if (currentIndex < dialogues.length) {
+        const { speaker, text } = dialogues[currentIndex];
 
-        <section id="weddingPartyPage" class="page-section">
-            <div class="heading_WP">
-                <h1>Our Love Sets Sail!</h1>
-                <p>Following our ceremony, we invite you to celebrate with us at a reception filled with <br>good company, delicious food, and dancing under the stars.</p>
-            </div>
-
-            <div class="circles-container_WP">
-                <div class="flip-wrapper_WP">
-                    <div class="circle_WP" id="dateCircle_WP">
-                        <div class="face_WP front_WP">Save the Date</div>
-                        <div class="face_WP back_WP">Date:<br>October 25, 2025</div>
-                    </div>
-                </div>
-
-                <div class="flip-wrapper_WP">
-                    <div class="circle_WP" id="timeCircle_WP">
-                        <div class="face_WP front_WP">Let’s Celebrate</div>
-                        <div class="face_WP back_WP">Time:<br>7:00 PM</div>
-                    </div>
-                </div>
-
-                <div class="flip-wrapper_WP">
-                    <div class="circle_WP" id="venueCircle_WP">
-                        <div class="face_WP front_WP">See You There!</div>
-                        <div class="face_WP back_WP">
-                            <a href="https://www.google.com/maps/place/Aurika,+Mumbai+Skycity+-+Luxury+by+Lemon+Tree+Hotels/@19.1065134,72.8821706,15z/" target="_blank" rel="noopener noreferrer" class="map-link_WP">
-                                <svg class="map-icon_WP" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                                    <circle cx="12" cy="10" r="3"></circle>
-                                </svg>
-                                <span>Aurika by Lemon Tree Hotels<br>Andheri East</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="tooltip_WP" id="directionTooltip_WP">Click here for directions</div>
-        </section>
-
-    </div>
-
-    <script>
-        // --- Love Story Page (index.html) Script ---
-        const dialogues_LS = [
-            { speaker: 'girl', text: 'I walked along the shore, lost in thought, not knowing love was walking toward me.' }, /* */
-            { speaker: 'boy', text: 'From the other end of the beach, I saw her—and the world stood still.' }, /* */
-            { speaker: 'girl', text: 'Each step brought us closer, like the sea was guiding us.' }, /* */
-            { speaker: 'boy', text: 'When our eyes met, I knew—this was the start of forever.' }, /* */
-            { speaker: 'final', text: 'Now, hand in hand, we walk into a new chapter. <br><strong>Join us as we say “I do.”</strong>' } /* */
-        ];
-        let currentIndex_LS = 0; /* */
-        let dialogueInterval_LS;
-
-        function showNextLine_LS() {
-            const girlBubble = document.getElementById('girlBubble_LS'); /* */
-            const boyBubble = document.getElementById('boyBubble_LS'); /* */
-            const finalBubble = document.getElementById('finalBubble_LS'); /* */
-
-            if (!girlBubble || !boyBubble || !finalBubble) return;
-
-            girlBubble.style.display = 'none'; /* */
-            boyBubble.style.display = 'none'; /* */
-            finalBubble.style.display = 'none'; /* */
-
-            if (currentIndex_LS < dialogues_LS.length) {
-                const { speaker, text } = dialogues_LS[currentIndex_LS]; /* */
-
-                if (speaker === 'girl') { /* */
-                    girlBubble.innerHTML = text; /* */
-                    girlBubble.style.display = 'block'; /* */
-                } else if (speaker === 'boy') { /* */
-                    boyBubble.innerHTML = text; /* */
-                    boyBubble.style.display = 'block'; /* */
-                } else if (speaker === 'final') { /* */
-                    finalBubble.innerHTML = text; /* */
-                    finalBubble.style.display = 'block'; /* */
-                }
-                currentIndex_LS++; /* */
-                
-                if (currentIndex_LS < dialogues_LS.length) { /* */
-                   dialogueInterval_LS = setTimeout(showNextLine_LS, 5000); /* */
-                }
-            }
-        }
-        const playDialogueButton_LS = document.getElementById('playDialogueButton_LS');
-        if(playDialogueButton_LS) {
-            playDialogueButton_LS.onclick = () => {
-                clearTimeout(dialogueInterval_LS); // Clear existing timeout if button is clicked again
-                currentIndex_LS = 0; // Restart dialogue
-                 showNextLine_LS(); // Show first line immediately
-            };
+        if (speaker === 'girl') {
+          girlBubble.innerHTML = text;
+          girlBubble.style.display = 'block';
+        } else if (speaker === 'boy') {
+          boyBubble.innerHTML = text;
+          boyBubble.style.display = 'block';
+        } else if (speaker === 'final') {
+          finalBubble.innerHTML = text;
+          finalBubble.style.display = 'block';
         }
 
+        currentIndex++;
 
-        // --- Nuptials Page (Nuptials.html) Script ---
-        const text_N = `“And now these three remain: faith, hope and love. But the greatest of these is love.” – 1 Corinthians 13:1`; /* */
-        const target_N = document.getElementById("typewriter_N"); /* */
-        let index_N = 0; /* */
-        let nuptialsTypewriterTimeout;
-
-        function typeWriter_N_func() {
-            if (target_N && index_N < text_N.length) { /* */
-                target_N.textContent += text_N.charAt(index_N); /* */
-                index_N++; /* */
-                nuptialsTypewriterTimeout = setTimeout(typeWriter_N_func, 30); /* */
-            } else if (target_N) {
-                target_N.style.borderRight = "none"; /* */
-                document.getElementById("nuptialsPage").classList.add("show-animations"); /* Adapted from document.body.classList.add("show") */
-            }
-        }
-
-        // --- Wedding Party Page (wedding.html) Script ---
-        function initWeddingPartyAnimations() {
-            const heading_WP_el = document.querySelector('#weddingPartyPage .heading_WP');
-            if(heading_WP_el) heading_WP_el.style.opacity = '1'; /* */
-
-            setTimeout(() => {
-                const dateCircle = document.getElementById('dateCircle_WP'); /* */
-                if(dateCircle) dateCircle.classList.add('flipped_WP'); /* Adapted class name */
-            }, 10000); /* */
-
-            setTimeout(() => {
-                const timeCircle = document.getElementById('timeCircle_WP'); /* */
-                if(timeCircle) timeCircle.classList.add('flipped_WP'); /* Adapted class name */
-            }, 10000); /* */
-
-            setTimeout(() => {
-                const venueCircle = document.getElementById('venueCircle_WP'); /* */
-                if(venueCircle) venueCircle.classList.add('flipped_WP'); /* Adapted class name */
-
-                setTimeout(() => {
-                    const tooltip = document.getElementById('directionTooltip_WP'); /* */
-                    if(tooltip) tooltip.classList.add('show_WP'); /* Adapted class name */
-                }, 2000); /* */
-            }, 10000); /* */
-        }
-
-
-        // Observer to trigger animations when sections become visible
-        const sections = document.querySelectorAll('.page-section');
-        const options = {
-            root: document.querySelector('.scroll-snap-container'), // scroll container
-            rootMargin: '0px',
-            threshold: 0.6 // Trigger when 60% of the section is visible
-        };
-
-        let nuptialsInitialized = false;
-        let weddingPartyInitialized = false;
-        let loveStoryInitialized = false;
-
-
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    if (entry.target.id === 'loveStoryPage' && !loveStoryInitialized) {
-                        // console.log("Love Story visible");
-                        // Auto-play dialogue or wait for button click as currently implemented
-                        // If you want it to autoplay on first view:
-                        // currentIndex_LS = 0;
-                        // showNextLine_LS();
-                        // loveStoryInitialized = true;
-                        // Current setup relies on button click, so no auto-init needed here unless changed.
-                    } else if (entry.target.id === 'nuptialsPage' && !nuptialsInitialized) {
-                        // console.log("Nuptials visible");
-                        if(target_N) target_N.textContent = ''; // Reset for re-scroll
-                        index_N = 0;
-                        clearTimeout(nuptialsTypewriterTimeout);
-                        document.getElementById("nuptialsPage").classList.remove("show-animations");
-                        typeWriter_N_func();
-                        nuptialsInitialized = true; // Mark as initialized to prevent re-triggering constantly
-                                                 // or set to false if you want it to re-animate every time it scrolls into view.
-                    } else if (entry.target.id === 'weddingPartyPage' && !weddingPartyInitialized) {
-                        // console.log("Wedding Party visible");
-                        initWeddingPartyAnimations();
-                        weddingPartyInitialized = true;
-                    }
-                } else {
-                    // Optional: Reset flags if you want animations to re-run every time
-                    if (entry.target.id === 'nuptialsPage') nuptialsInitialized = false;
-                    if (entry.target.id === 'weddingPartyPage') weddingPartyInitialized = false;
-                     if (entry.target.id === 'loveStoryPage') {
-                        clearTimeout(dialogueInterval_LS); // Stop dialogue if scrolled away
-                        // loveStoryInitialized = false; // if it should restart on scroll back
-                    }
-                }
-            });
-        }, options);
-
-        sections.forEach(section => {
-            observer.observe(section);
-        });
-
-        // Smooth scroll for internal links
-        document.querySelectorAll('a.internal-scroll-link').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    targetElement.scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-
-
-      function enterFullscreen() {
-        const elem = document.documentElement;
-        if (elem.requestFullscreen) {
-          elem.requestFullscreen();
-        } else if (elem.webkitRequestFullscreen) { /* Safari */
-          elem.webkitRequestFullscreen();
-        } else if (elem.msRequestFullscreen) { /* IE11 */
-          elem.msRequestFullscreen();
-        }
+        if (currentIndex < dialogues.length) {
+          setTimeout(showNextLine, 5000);
+        } 
       }
-    </script>
-
-    <!-- Example usage: -->
-    <body onclick="enterFullscreen()">
-
+    }
+  </script>
 </body>
 </html>
