@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Keenan & Gloria's Wedding</title>
+    <style>
+        /* --- Global Styles --- */
+        :root {
+            --primary-font: 'Georgia', serif;
+            --text-color: #333;
+            --bg-card: rgba(255, 255, 255, 0.85);
+        }
+
+        body {
+            margin: 0;
+            font-family: var(--primary-font);
+            /* Using a single background for a cohesive theme */
+            background: url('https://images.pexels.com/photos/1535244/pexels-photo-1535244.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1') no-repeat center center fixed;
+            background-size: cover;
+            color: var(--text-color);
+        }
+
+        section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 40px 20px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        /* --- Section 1: Love Story --- */
+        #love-story #title {
+            font-size: clamp(2.5rem, 10vw, 4rem);
+            color: white;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+            margin-bottom: 20px;
+        }
+
+        #love-story .scene {
+            width: 90%;
+            max-width: 500px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            position: relative;
+        }
+
+        #love-story .character {
+            width: 40%;
+            max-width: 150px;
+        }
+
+        #love-story .speech-bubble-container {
+            position: relative;
+            width: 100%;
+            height: 120px;
+        }
+        
+        #love-story .speech-bubble {
+            position: absolute;
+            width: 80%;
+            max-width: 350px;
+            padding: 15px;
+            border-radius: 20px;
+            font-size: 1em;
+            display: none;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            word-wrap: break-word;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 0;
+        }
+
+        #love-story .left-bubble { background: #ffc0cb; color: #5a3e36; }
+        #love-story .right-bubble { background: #800000; color: #ffffff; }
+        #love-story #finalBubble { background: #f5f5dc; color: black; }
+
+        #love-story .play-btn {
+            margin-top: 20px;
+            padding: 12px 25px;
+            background: #c57b57;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.1em;
+        }
+
+        /* --- Section 2: Nuptials --- */
+        #nuptials {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+        }
+
+        #nuptials .verse {
+            font-size: clamp(1rem, 4vw, 1.2rem);
+            font-style: italic;
+            min-height: 80px;
+            max-width: 600px;
+        }
+
+        #nuptials .typewriter-text {
+            border-right: 2px solid white;
+            white-space: pre-wrap;
+            overflow-wrap: break-word;
+        }
+        
+        #nuptials .names-container, #nuptials .details {
+            opacity: 0; /* Hidden until animated */
+        }
+        
+        #nuptials.visible .names-container { animation: fadeIn 0.5s forwards; }
+        #nuptials.visible .keenan { animation: flyInLeft 1.5s ease-out forwards; }
+        #nuptials.visible .and-text { animation: fadeIn 1.5s ease-out forwards 1s; }
+        #nuptials.visible .gloria { animation: flyInRight 1.5s ease-out forwards 1s; }
+        #nuptials.visible .details { animation: fadeIn 2s ease forwards 2.5s; }
+
+        #nuptials .names-container {
+            font-size: clamp(2rem, 10vw, 3.5rem);
+            font-weight: bold;
+            line-height: 1.5;
+        }
+
+        #nuptials .keenan, #nuptials .gloria, #nuptials .and-text {
+            opacity: 0; /* Hidden for animation */
+        }
+
+        #nuptials .details {
+            font-size: clamp(1rem, 4vw, 1.1rem);
+            margin-top: 20px;
+        }
+
+        /* --- Section 3: Reception --- */
+        #reception {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        #reception .heading {
+            background-color: var(--bg-card);
+            padding: 16px;
+            border-radius: 12px;
+            max-width: 90%;
+            margin-bottom: 40px;
+        }
+        
+        #reception .heading h1 {
+            margin: 0;
+            font-size: clamp(1.5rem, 6vw, 2.2rem);
+        }
+
+        #reception .heading p {
+            margin: 5px 0 0;
+            font-size: clamp(0.9rem, 3vw, 1rem);
+        }
+
+        #reception .circles-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        #reception .flip-wrapper {
+            width: 130px;
+            height: 130px;
+            perspective: 800px;
+        }
+
+        #reception .circle {
+            width: 100%; height: 100%; position: relative;
+            transform-style: preserve-3d;
+            transition: transform 1.6s ease;
+        }
+
+        #reception .circle.flipped { transform: rotateY(180deg); }
+
+        #reception .face {
+            position: absolute; width: 100%; height: 100%;
+            border-radius: 50%;
+            background-color: #000;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9em;
+            padding: 10px;
+            backface-visibility: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            border: 4px double gold;
+        }
+
+        #reception .front { transform: rotateY(0deg); }
+        #reception .back { transform: rotateY(180deg); }
+
+        #reception .map-link {
+            text-decoration: none;
+            color: white;
+        }
+
+        #reception .map-icon {
+            width: 24px; height: 24px;
+            stroke: gold; fill: gold;
+            margin-bottom: 5px;
+        }
+
+        /* --- Animations --- */
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes flyInLeft { from { transform: translateX(-100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @keyframes flyInRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
+    </style>
+</head>
+<body>
+
+    <section id="love-story">
+        <h1 id="title">Once Upon a Tide…</h1>
+        <div class="scene">
+            <img src="https://raw.githubusercontent.com/gloriacreator/our-love-story/main/girl.png" alt="Girl" class="character" id="girl" />
+            <img src="https://raw.githubusercontent.com/gloriacreator/our-love-story/main/boy.png" alt="Boy" class="character" id="boy" />
+        </div>
+        <div class="speech-bubble-container">
+            <div class="speech-bubble left-bubble" id="girlBubble"></div>
+            <div class="speech-bubble right-bubble" id="boyBubble"></div>
+            <div class="speech-bubble" id="finalBubble"></div>
+        </div>
+        <button class="play-btn" id="storyPlayBtn">Play Story</button>
+    </section>
+
+    <section id="nuptials">
+        <div class="verse">
+            <span class="typewriter-text" id="typewriter"></span>
+        </div>
+        <div class="names-container">
+            <div class="keenan">Keenan</div>
+            <div class="and-text">and</div>
+            <div class="gloria">Gloria</div>
+        </div>
+        <div class="details">
+            <strong>Together with their families, invite you to celebrate their marriage</strong><br><br>
+            <strong>Holy Family Church, Andheri East</strong><br><br>
+            <strong>At 4:00 PM</strong>
+        </div>
+    </section>
+
+    <section id="reception">
+        <div class="heading">
+            <h1>Our Love Sets Sail!</h1>
+            <p>Following our ceremony, we invite you to celebrate with us at a reception filled with <br>good company, delicious food, and dancing under the stars.</p>
+        </div>
+        <div class="circles-container">
+            <div class="flip-wrapper">
+                <div class="circle" id="dateCircle">
+                    <div class="face front">Save the Date</div>
+                    <div class="face back">Date:<br>October 25, 2025</div>
+                </div>
+            </div>
+            <div class="flip-wrapper">
+                <div class="circle" id="timeCircle">
+                    <div class="face front">Let’s Celebrate</div>
+                    <div class="face back">Time:<br>7:00 PM</div>
+                </div>
+            </div>
+            <div class="flip-wrapper">
+                <div class="circle" id="venueCircle">
+                    <div class="face front">See You There!</div>
+                    <div class="face back">
+                        <a href="https://maps.app.goo.gl/rG9g5qTh7sA7n4Sg7" target="_blank" rel="noopener noreferrer" class="map-link">
+                            <svg class="map-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                            <span>Aurika by Lemon Tree Hotels<br>Andheri East</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+        // --- Love Story Logic ---
+        const storyPlayBtn = document.getElementById('storyPlayBtn');
+        const dialogues = [
+            { speaker: 'girl', text: 'I walked along the shore, lost in thought, not knowing love was walking toward me.' },
+            { speaker: 'boy', text: 'From the other end of the beach, I saw her—and the world stood still.' },
+            { speaker: 'girl', text: 'Each step brought us closer, like the sea was guiding us.' },
+            { speaker: 'boy', text: 'When our eyes met, I knew—this was the start of forever.' },
+            { speaker: 'final', text: 'Now, hand in hand, we walk into a new chapter. <br><strong>Join us as we say “I do.”</strong>' }
+        ];
+        let storyIndex = 0;
+
+        storyPlayBtn.addEventListener('click', () => {
+            showNextLine();
+            storyPlayBtn.textContent = 'Next'; // Change button text after first click
+            if (storyIndex >= dialogues.length) {
+                storyPlayBtn.style.display = 'none'; // Hide when story is over
+            }
+        });
+
+        function showNextLine() {
+            const girlBubble = document.getElementById('girlBubble');
+            const boyBubble = document.getElementById('boyBubble');
+            const finalBubble = document.getElementById('finalBubble');
+            
+            // Hide all bubbles first
+            girlBubble.style.display = 'none';
+            boyBubble.style.display = 'none';
+            finalBubble.style.display = 'none';
+            
+            if (storyIndex < dialogues.length) {
+                const { speaker, text } = dialogues[storyIndex];
+                if (speaker === 'girl') {
+                    girlBubble.innerHTML = text;
+                    girlBubble.style.display = 'block';
+                } else if (speaker === 'boy') {
+                    boyBubble.innerHTML = text;
+                    boyBubble.style.display = 'block';
+                } else if (speaker === 'final') {
+                    finalBubble.innerHTML = text;
+                    finalBubble.style.display = 'block';
+                }
+                storyIndex++;
+            } else {
+                storyPlayBtn.style.display = 'none'; // Story finished
+            }
+        }
+        
+        // --- Scroll-Triggered Animations using Intersection Observer ---
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    
+                    // Trigger animations for the specific section that is now visible
+                    if(entry.target.id === 'nuptials') {
+                        startNuptialsAnimation();
+                    }
+                    if(entry.target.id === 'reception') {
+                        startReceptionAnimation();
+                    }
+                    
+                    observer.unobserve(entry.target); // Stop observing once it's visible
+                }
+            });
+        }, { threshold: 0.2 }); // Trigger when 20% of the section is visible
+
+        // Observe the sections
+        const nuptialsSection = document.getElementById('nuptials');
+        const receptionSection = document.getElementById('reception');
+        observer.observe(nuptialsSection);
+        observer.observe(receptionSection);
+
+        // --- Nuptials Animation Logic ---
+        function startNuptialsAnimation() {
+            const text = "“And now these three remain: faith, hope and love. But the greatest of these is love.” – 1 Corinthians 13:13";
+            const target = document.getElementById("typewriter");
+            let index = 0;
+
+            function typeWriter() {
+                if (index < text.length) {
+                    target.textContent += text.charAt(index);
+                    index++;
+                    setTimeout(typeWriter, 30);
+                } else {
+                    target.style.borderRight = "none";
+                }
+            }
+            typeWriter();
+        }
+
+        // --- Reception Animation Logic ---
+        function startReceptionAnimation() {
+            setTimeout(() => document.getElementById('dateCircle').classList.add('flipped'), 500);
+            setTimeout(() => document.getElementById('timeCircle').classList.add('flipped'), 1000);
+            setTimeout(() => document.getElementById('venueCircle').classList.add('flipped'), 1500);
+        }
+    });
+    </script>
+</body>
+</html>

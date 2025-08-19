@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keenan Weds</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Great+Vibes&display=swap');
+
+        :root {
+            --beach-blue: #a3c4f3;
+            --sandy-beige: #f4e8d3;
+            --white: #ffffff;
+            --text-dark: #333;
+            --overlay-color: rgba(0, 0, 0, 0.4);
+        }
+
+        body {
+            font-family: 'Playfair Display', serif;
+            margin: 0;
+            background-color: var(--sandy-beige);
+            color: var(--text-dark);
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .container {
+            max-width: 768px;
+            margin: 0 auto;
+        }
+
+        /* --- General Styles --- */
+        h1, h2 {
+            font-family: 'Great Vibes', cursive;
+            font-weight: normal;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            font-family: 'Playfair Display', serif;
+            line-height: 1.6;
+        }
+
+        .section {
+            padding: 2rem 1rem;
+            text-align: center;
+        }
+
+        .icon {
+            width: 50px;
+            height: auto;
+            margin: 1rem 0;
+        }
+
+        /* --- Header --- */
+        .header {
+            position: relative;
+            height: 50vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2073&auto=format&fit=crop'); /* Replace with your own high-quality beach image */
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+        }
+
+        .header-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--overlay-color);
+            z-index: 1;
+        }
+
+        .header-text {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin: 0;
+        }
+
+        /* --- Our Love Story --- */
+        .narration-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background-color: var(--beach-blue);
+            color: var(--white);
+        }
+
+        .narration-icon {
+            width: 100px;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0.2;
+        }
+
+        .narration-icon.girl { left: -20px; }
+        .narration-icon.boy { right: -20px; }
+
+        .narration-content {
+            z-index: 1;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .narration-text {
+            min-height: 80px; /* Prevent layout shift */
+            margin: 1rem 0;
+            font-style: italic;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            font-size: 1.2rem;
+        }
+
+        .play-button {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: var(--white);
+            color: var(--beach-blue);
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s;
+        }
+
+        .play-button:active {
+            transform: scale(0.95);
+        }
+
+        /* --- RSVP Section --- */
+        .rsvp-section {
+            background-color: var(--sandy-beige);
+        }
+        
+        .rsvp-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-width: 350px;
+            margin: 1rem auto 0;
+        }
+
+        .rsvp-form label {
+            text-align: left;
+            font-weight: bold;
+        }
+
+        .rsvp-form input {
+            padding: 0.75rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: inherit;
+        }
+
+        .rsvp-form button {
+            padding: 1rem;
+            background-color: var(--beach-blue);
+            color: var(--white);
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-family: 'Playfair Display', serif;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .rsvp-form button:hover {
+            background-color: #7aa5dd;
+        }
+
+        .success-message {
+            margin-top: 1rem;
+            color: green;
+            font-weight: bold;
+            display: none;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-overlay"></div>
+            <div class="header-text">
+                <h1>Keenan Weds Gloria</h1>
+            </div>
+        </header>
+
+        <section class="narration-section section">
+            <img src="https://www.flaticon.com/svg/static/icons/svg/3038/3038166.svg" alt="Girl clipart" class="narration-icon girl">
+            <img src="https://www.flaticon.com/svg/static/icons/svg/3038/3038153.svg" alt="Boy clipart" class="narration-icon boy">
+            <div class="narration-content">
+                <h2>Our Love Story</h2>
+                <div id="narration-text" class="narration-text"></div>
+                <button id="play-button" class="play-button">▶</button>
+            </div>
+        </section>
+        
+        <section class="nuptial-section section">
+            <h2>Nuptials</h2>
+            <img src="Wedding Bells.png" alt="Wedding bells icon" class="icon">
+            <p><strong>Venue:</strong> Holy Family Church, Andheri East</p>
+            <p><strong>Timing:</strong> 4:30 PM</p>
+        </section>
+
+        <section class="reception-section section">
+            <h2>Reception</h2>
+            <img src="https://www.flaticon.com/svg/static/icons/svg/2908/2908332.svg" alt="Champagne glasses icon" class="icon">
+            <p><strong>Venue:</strong> Aurika by Lemon Tree Hotels, Mumbai International Airport, Andheri East</p>
+            <p><strong>Timing:</strong> 7:00 PM</p>
+        </section>
+
+        <section class="dress-section section">
+            <h2>Dress Theme</h2>
+            <img src="https://www.flaticon.com/svg/static/icons/svg/3012/3012165.svg" alt="Tuxedo icon" class="icon">
+            <p>Black Tie</p>
+        </section>
+
+        <section class="rsvp-section section">
+            <h2>RSVP</h2>
+            <form id="rsvp-form" class="rsvp-form">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required>
+                
+                <label for="guest-count">Guest Count</label>
+                <input type="number" id="guest-count" name="guest-count" min="1" required>
+
+                <button type="submit">Confirm Attendance</button>
+            </form>
+            <div id="success-message" class="success-message">Thank you for confirming!</div>
+        </section>
+    </div>
+
+    <script>
+        // --- Our Love Story Narration ---
+        const dialogues = [
+          { speaker: 'girl', text: 'I walked along the shore, lost in thought, not knowing love was walking toward me.' },
+          { speaker: 'boy', text: 'From the other end of the beach, I saw her—and the world stood still.' },
+          { speaker: 'girl', text: 'Each step brought us closer, like the sea was guiding us.' },
+          { speaker: 'boy', text: 'When our eyes met, I knew—this was the start of forever.' },
+          { speaker: 'final', text: 'Now, hand in hand, we walk into a new chapter.<br><strong>Join us as we say “I do.”</strong>' }
+        ];
+
+        const playButton = document.getElementById('play-button');
+        const narrationText = document.getElementById('narration-text');
+        let dialogueIndex = 0;
+
+        function playNarration() {
+            if (dialogueIndex < dialogues.length) {
+                narrationText.style.opacity = 0;
+                setTimeout(() => {
+                    narrationText.innerHTML = dialogues[dialogueIndex].text;
+                    narrationText.style.opacity = 1;
+                    dialogueIndex++;
+                }, 500); // Wait for fade-out before changing text
+            } else {
+                playButton.style.display = 'none'; // Hide button after final dialogue
+            }
+        }
+
+        playButton.addEventListener('click', playNarration);
+
+        // --- RSVP Form Submission ---
+        const rsvpForm = document.getElementById('rsvp-form');
+        const successMessage = document.getElementById('success-message');
+
+        rsvpForm.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            const name = document.getElementById('name').value;
+            const guestCount = document.getElementById('guest-count').value;
+
+            // --- THIS IS THE BACKEND INTEGRATION PART ---
+            // In a real-world scenario, you would send this data to a server
+            // using an API call (e.g., fetch).
+            //
+            // Example of what a fetch call would look like:
+            /*
+            fetch('/submit-rsvp', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ name, guestCount }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Show success message
+                    rsvpForm.reset(); // Clear the form
+                    successMessage.style.display = 'block';
+                } else {
+                    alert('Submission failed. Please try again.');
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+            });
+            */
+            
+            // For this static template, we'll just show the success message
+            // and log the data to the console.
+            console.log("RSVP Submitted:", { name: name, guests: guestCount });
+            rsvpForm.reset();
+            successMessage.style.display = 'block';
+
+            setTimeout(() => {
+                successMessage.style.display = 'none';
+            }, 5000); // Hide the message after 5 seconds
+        });
+    </script>
+</body>
+</html>
