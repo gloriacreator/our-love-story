@@ -383,7 +383,7 @@
         10. Paste that URL into the `scriptURL` constant below, replacing the placeholder text.
         ------------------------------------------------------------------------------------------
         */
-        const scriptURL = 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE'; // <-- PASTE YOUR URL HERE
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzSFGsVA3XJGmdo5d7yyTj8DP90UP-HGFDHKO7a4JK_lWpLnWPM3HlPCvaa0nypUIfMPw/exec'; // <-- PASTE YOUR URL HERE
 
         form.addEventListener('submit', e => {
             e.preventDefault();
@@ -399,7 +399,7 @@
                 })
                 .catch(error => {
                     console.error('Error!', error.message);
-                    alert('An error occurred. Please try again.');
+                    alert(`Error: ${error.message}`);
                     submitButton.disabled = false;
                     submitButton.textContent = 'Confirm Attendance';
                 });
