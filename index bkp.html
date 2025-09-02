@@ -25,7 +25,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <style>
-        /* General Design Guidelines */
         :root {
             --font-cursive: 'Great Vibes', cursive;
             --font-serif: 'Playfair Display', serif;
@@ -42,15 +41,14 @@
         body {
             font-family: var(--font-serif);
             margin: 0;
-            background-image: url('ghibli image.jpg');
+            background-image: url('beach.jpeg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
             color: var(--color-text);
         }
 
-        /* All sections are single-scroll, separated by containers */
-        .container {
+        .container { 
             max-width: 768px;
             margin: 2rem auto;
             padding: 2rem;
@@ -74,17 +72,18 @@
             margin-bottom: 1rem;
         }
 
-        /* 2. Header */
+        /* ✅ HEADER FIX */
         header {
+            position: relative;
+            min-height: 250px; /* Smaller than 100vh */
+            padding: 50px 20px;
+            text-align: center;
+            color: var(--color-white);
+            background-color: rgba(0, 0, 0, 0.4);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            text-align: center;
-            color: var(--color-white);
-            /* Overlay for readability */
-            background-color: rgba(0, 0, 0, 0.4);
         }
 
         header h1 {
@@ -96,32 +95,34 @@
 
         header p {
             font-size: 1.5rem;
-            margin-top: 0.5rem;
-            letter-spacing: 2.5px;
-            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+            margin-top: 10px;
         }
 
-        /* 3. Narration Section */
+        /* Remove transform pushing content up */
+        .header-content {
+            transform: none;
+        }
+
+        /* Story Section */
         #story-layout {
             display: flex;
             justify-content: space-around;
             align-items: center;
-            margin-bottom: 1.5rem;
+            margin-bottom: 0.5rem;
         }
 
-        /* Styling for the new image cliparts */
         .story-image {
-            width: 100px; /* Adjust size as needed */
-            height: 100px; /* Adjust size as needed */
-            border-radius: 0; /* Make images circular */
-            object-fit: cover; /* Ensure images fill the circle */
-            border: 3px solid transparent; /* Placeholder for glow  */
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 0;
+            border: 3px solid transparent;
             transition: box-shadow 0.3s ease-in-out, border 0.3s ease-in-out;
         }
 
         .glowing {
             box-shadow: 0 0 15px 5px var(--color-sandy-beige);
-            border-color: var(--color-sandy-beige); /* Optional: add border color on glow */
+            border-color: var(--color-sandy-beige);
         }
 
         #play-button {
@@ -145,18 +146,12 @@
             font-size: 1.1rem;
             line-height: 1.6;
             transition: opacity 0.5s ease-in-out;
-            margin-top: 1rem; /* Space between play button and text */
+            margin-top: 1rem;
         }
 
-        /* Animation for dialogue text */
-        .fade-in {
-            opacity: 1;
-        }
-        .fade-out {
-            opacity: 0;
-        }
+        .fade-in { opacity: 1; }
+        .fade-out { opacity: 0; }
 
-        /* 4, 5, 6. Detail Sections (Nuptials, Reception, Dress) */
         .details p {
             font-size: 1.2rem;
             line-height: 1.7;
@@ -166,7 +161,6 @@
             color: var(--color-dark-blue);
         }
 
-        /* 7. RSVP Section */
         #rsvp-form input {
             width: 100%;
             padding: 15px;
@@ -175,7 +169,7 @@
             border-radius: 8px;
             font-family: var(--font-serif);
             font-size: 1rem;
-            box-sizing: border-box; /* Important for padding */
+            box-sizing: border-box;
         }
 
         #rsvp-form button {
@@ -205,10 +199,12 @@
     </style>
 </head>
 <body>
-
+<!-- adding header -->
     <header>
-        <h1>Keenan weds Gloria</h1>
-        <p>25.10.25</p>
+        <div class="header-content">
+            <h1>Keenan weds Gloria</h1>
+            <p>25.10.25</p>
+        </div>
     </header>
 
     <main>
@@ -246,12 +242,6 @@
             </p>
         </section>
 
-        <!-- <section id="dress" class="container details">
-            <h2>Dress Theme</h2>
-            <div class="icon"><i class="fa-solid fa-user-tie"></i></div>
-            <p>Black Tie</p>
-        </section> -->
-
         <section id="rsvp" class="container">
             <h2>RSVP</h2>
             <form id="rsvp-form" name="submit-to-google-sheet">
@@ -265,11 +255,10 @@
     </main>
 
     <script>
-        // 3. Narration Section Functionality
         const playButton = document.getElementById('play-button');
         const dialogueDisplay = document.getElementById('dialogue-display');
-        const girlImage = document.getElementById('girl-image'); // Updated ID
-        const boyImage = document.getElementById('boy-image');   // Updated ID
+        const girlImage = document.getElementById('girl-image');
+        const boyImage = document.getElementById('boy-image');
 
         const dialogues = [
             { speaker: 'girl', text: 'I walked along the shore, lost in thought, not knowing love was walking toward me.' },
@@ -282,10 +271,8 @@
         let currentDialogueIndex = 0;
 
         playButton.addEventListener('click', () => {
-            // Disable button after first click
             playButton.disabled = true;
             playButton.style.opacity = '0.7';
-
             dialogueDisplay.classList.remove('fade-out');
             dialogueDisplay.classList.add('fade-in');
             playNextDialogue();
@@ -299,91 +286,35 @@
         function playNextDialogue() {
             if (currentDialogueIndex < dialogues.length) {
                 const currentDialogue = dialogues[currentDialogueIndex];
-                
-                removeGlow(); // Clear previous glow
-
+                removeGlow();
                 if (currentDialogue.speaker === 'girl') {
                     girlImage.classList.add('glowing');
                 } else if (currentDialogue.speaker === 'boy') {
                     boyImage.classList.add('glowing');
-                } else if (currentDialogue.speaker === 'final') {
+                } else {
                     girlImage.classList.add('glowing');
                     boyImage.classList.add('glowing');
                 }
-                
-                // Fade out old text
+
                 dialogueDisplay.classList.remove('fade-in');
                 dialogueDisplay.classList.add('fade-out');
 
-                // Wait for fade out, then change text and fade in
                 setTimeout(() => {
                     dialogueDisplay.innerHTML = currentDialogue.text;
                     dialogueDisplay.classList.remove('fade-out');
                     dialogueDisplay.classList.add('fade-in');
-                }, 500); // 0.5s to match CSS transition
+                }, 500);
 
                 currentDialogueIndex++;
-                setTimeout(playNextDialogue, 4000); // Show each dialogue for 4 seconds
+                setTimeout(playNextDialogue, 4000);
             } else {
-                // All dialogues played, remove glow after a short delay
                 setTimeout(removeGlow, 2000);
             }
         }
 
-        // 7. RSVP Section Functionality
         const form = document.getElementById('rsvp-form');
         const successMessage = document.getElementById('success-message');
-
-        /*
-        ------------------------------------------------------------------------------------------
-        INSTRUCTIONS FOR GOOGLE SHEETS INTEGRATION (To store responses in an Excel-like file)
-        ------------------------------------------------------------------------------------------
-        1. Create a new Google Sheet.
-        2. In the sheet, go to Extensions > Apps Script.
-        3. Paste the following code into the script editor and save it:
-
-            const sheetName = 'Sheet1'; // Or your sheet's name
-            const scriptProp = PropertiesService.getScriptProperties();
-
-            function doPost(e) {
-                const lock = LockService.getScriptLock();
-                lock.tryLock(10000);
-
-                try {
-                    const doc = SpreadsheetApp.getActiveSpreadsheet();
-                    const sheet = doc.getSheetByName(sheetName);
-                    
-                    const headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
-                    const nextRow = sheet.getLastRow() + 1;
-                    
-                    const newRow = headers.map(function(header) {
-                        return header === 'Timestamp' ? new Date() : e.parameter[header];
-                    });
-                    
-                    sheet.getRange(nextRow, 1, 1, newRow.length).setValues([newRow]);
-                    
-                    return ContentService
-                        .createTextOutput(JSON.stringify({ 'result': 'success', 'row': nextRow }))
-                        .setMimeType(ContentService.MimeType.JSON);
-                } catch (e) {
-                    return ContentService
-                        .createTextOutput(JSON.stringify({ 'result': 'error', 'error': e }))
-                        .setMimeType(ContentService.MimeType.JSON);
-                } finally {
-                    lock.releaseLock();
-                }
-            }
-
-        4. In your Sheet, create headers in the first row that EXACTLY match the `name` attributes in the form's input fields (e.g., 'Name', 'GuestCount'). You can also add a 'Timestamp' header.
-        5. In the Apps Script editor, click Deploy > New deployment.
-        6. For "Select type," choose "Web app."
-        7. In the configuration, set "Who has access" to "Anyone" (this is important).
-        8. Click "Deploy." Authorize the script when prompted.
-        9. Copy the generated Web app URL.
-        10. Paste that URL into the `scriptURL` constant below, replacing the placeholder text.
-        ------------------------------------------------------------------------------------------
-        */
-        const scriptURL = 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE'; // <-- PASTE YOUR URL HERE
+        const scriptURL = 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE';
 
         form.addEventListener('submit', e => {
             e.preventDefault();
@@ -393,12 +324,10 @@
 
             fetch(scriptURL, { method: 'POST', body: new FormData(form) })
                 .then(response => {
-                    console.log('Success!', response);
                     form.style.display = 'none';
                     successMessage.style.display = 'block';
                 })
                 .catch(error => {
-                    console.error('Error!', error.message);
                     alert('An error occurred. Please try again.');
                     submitButton.disabled = false;
                     submitButton.textContent = 'Confirm Attendance';
