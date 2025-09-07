@@ -3,14 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Open Graph Meta Tags for Thumbnail -->
     <meta property="og:title" content="Keenan weds Gloria">
     <meta property="og:description" content="Join us on 25.10.25 to celebrate our special day!">
     <meta property="og:image" content="https://gloriacreator.github.io/our-love-story/thumbnail.jpg">
     <meta property="og:url" content="https://yourwebsite.com">
     <meta property="og:type" content="website">
 
-    <!-- For Twitter (optional) -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Keenan weds Gloria">
     <meta name="twitter:description" content="Join us on 25.10.25 to celebrate our special day!">
@@ -284,7 +282,6 @@
     <header>
         <h1>Keenan weds Gloria</h1>
         <p>25.10.25</p>
-        <!-- Scroll Down Indicator -->
         <div class="scroll-down">
             <span>Please scroll down</span>
             <i class="fa-solid fa-angles-down"></i>
@@ -297,14 +294,12 @@
             <div id="story-layout">
                 <img src="girl.png" alt="Gloria" class="story-image" id="girl-image">
                 
-                <!-- Play button wrapper with disappearing effect -->
                 <div class="play-wrapper" id="play-wrapper">
                     <button id="play-button"><i class="fa-solid fa-play"></i></button>
                     <p class="play-text">Press to play the story</p>
                 </div>
 
-                <!-- Anchor image (hidden initially) -->
-                <!-- <img src="anchor.png" alt="Anchor" id="anchor-image"> -->
+                <img src="anchor.png" alt="Anchor" id="anchor-image">
                 
                 <img src="boy.png" alt="Keenan" class="story-image" id="boy-image">
             </div>
@@ -334,12 +329,6 @@
                 </a>
             </p>
         </section>
-
-        <!-- <section id="dress" class="container details">
-            <h2>Dress Theme</h2>
-            <div class="icon"><i class="fa-solid fa-user-tie"></i></div>
-            <p>Black Tie</p>
-        </section> -->
 
         <section id="rsvp" class="container">
             <h2>RSVP</h2>
@@ -373,18 +362,20 @@
         let currentDialogueIndex = 0;
 
         playButton.addEventListener('click', () => {
-            // Hide button + text
+            // Hide button + text by fading it out
             playWrapper.classList.add('hidden');
 
-            // Show anchor image
-            setTimeout(() => {
-                anchorImage.classList.add('show');
-            }, 500);
-
-            // Start story
+            // Start the story narration immediately
             dialogueDisplay.classList.remove('fade-out');
             dialogueDisplay.classList.add('fade-in');
             playNextDialogue();
+
+            // After the fade-out animation (500ms), remove the play button from the layout 
+            // and show the anchor image in its place.
+            setTimeout(() => {
+                playWrapper.style.display = 'none'; // This line is the main fix
+                anchorImage.classList.add('show');
+            }, 500); // This delay should match your CSS transition duration
         });
 
         function removeGlow() {
