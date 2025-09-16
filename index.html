@@ -289,6 +289,11 @@
     </header>
 
     <main>
+        <audio id="background-music" loop>
+            <source src="Calming relaxing music.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+
         <section id="story" class="container">
             <h2>Our Love Story</h2>
             <div id="story-layout">
@@ -350,9 +355,12 @@
         const girlImage = document.getElementById('girl-image');
         const boyImage = document.getElementById('boy-image');
         const anchorImage = document.getElementById('anchor-image'); // anchor reference
+        
+        // ADDITION 2: Get the audio element
+        const backgroundMusic = document.getElementById('background-music');
 
         const dialogues = [
-            { speaker: 'girl', text: 'I walked along the shore, <br>lost in thought, <br>                not knowing love was walking towards me.' },
+            { speaker: 'girl', text: 'I walked along the shore, <br>lost in thought, <br>                    not knowing love was walking towards me.' },
             { speaker: 'boy', text: 'From the other end of the beach,<br>I saw her—<br>and the world stood still.' },
             { speaker: 'girl', text: 'Each step brought us closer,<br>like the sea was guiding us.' },
             { speaker: 'boy', text: 'When our eyes met,<br>I knew—this was the start off ---<br><strong>forever.</strong>' },
@@ -364,6 +372,9 @@
         playButton.addEventListener('click', () => {
             // Hide button + text by fading it out
             playWrapper.classList.add('hidden');
+
+            // ADDITION 3: Play the music
+            backgroundMusic.play();
 
             // Start the story narration immediately
             dialogueDisplay.classList.remove('fade-out');
@@ -425,7 +436,7 @@
         1. Create a new Google Sheet.
         2. In the sheet, go to Extensions > Apps Script.
         3. Paste the following code into the script editor and save it:
-            ...
+           ...
         ------------------------------------------------------------------------------------------
         */
         const scriptURL = 'https://script.google.com/macros/s/AKfycbzSFGsVA3XJGmdo5d7yyTj8DP90UP-HGFDHKO7a4JK_lWpLnWPM3HlPCvaa0nypUIfMPw/exec'; // <-- PASTE YOUR URL HERE
