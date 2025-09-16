@@ -352,11 +352,11 @@
         const anchorImage = document.getElementById('anchor-image'); // anchor reference
 
         const dialogues = [
-            { speaker: 'girl', text: 'I walked along the shore, lost in thought, not knowing love was walking toward me.' },
-            { speaker: 'boy', text: 'From the other end of the beach, I saw her—and the world stood still.' },
-            { speaker: 'girl', text: 'Each step brought us closer, like the sea was guiding us.' },
-            { speaker: 'boy', text: 'When our eyes met, I knew—this was the start of forever.' },
-            { speaker: 'final', text: 'Now, hand in hand, we walk into a new chapter.<br><strong>Join us as we say “I do.”</strong>' }
+            { speaker: 'girl', text: 'I walked along the shore, <br>lost in thought, <br>                not knowing love was walking toward me.' },
+            { speaker: 'boy', text: 'From the other end of the beach,<br>I saw her—<br>and the world stood still.' },
+            { speaker: 'girl', text: 'Each step brought us closer,<br>like the sea was guiding us.' },
+            { speaker: 'boy', text: 'When our eyes met,<br>I knew—this was the start off forever.' },
+            { speaker: 'final', text: 'Now, hand in hand, <br>we walk into a new chapter.<br><strong>   Join us as we say “I do.”</strong>' }
         ];
 
         let currentDialogueIndex = 0;
@@ -408,7 +408,7 @@
                 }, 500);
 
                 currentDialogueIndex++;
-                setTimeout(playNextDialogue, 5000); // each dialogue lasts 5 seconds
+                setTimeout(playNextDialogue, 8000); // each dialogue lasts 5 seconds
             } else {
                 setTimeout(removeGlow, 2000);
             }
